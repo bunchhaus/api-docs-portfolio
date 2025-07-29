@@ -1,0 +1,4 @@
+- [Home](README.md)
+- Reference
+  - [Current Weather](reference/endpoints.md)
+  - [5-Day Forecast](reference/forecast.md)
