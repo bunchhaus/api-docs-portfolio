@@ -1,0 +1,68 @@
+openapi: 3.0.0
+info:
+  title: Weather API
+  version: 1.0.0
+
+servers:
+  - url: https://api.example.com/v1
+    description: Production server
+
+paths:
+  /current:
+    get:
+      summary: Get current weather
+      parameters:
+        - in: query
+          name: city
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CurrentWeather'
+
+  /forecast:
+    get:
+      summary: Get 5-day weather forecast
+      parameters:
+        - in: query
+          name: city
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Forecast'
+
+components:
+  schemas:
+    CurrentWeather:
+      type: object
+      properties:
+        temperature:
+          type: number
+        condition:
+          type: string
+
+    Forecast:
+      type: object
+      properties:
+        days:
+          type: array
+          items:
+            type: object
+            properties:
+              date:
+                type: string
+              temperature:
+                type: number
+              condition:
+                type: string
