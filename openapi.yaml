@@ -61,7 +61,7 @@ paths:
                 name: Brooklyn
                 cod: 200
 
-   /forecast:
+  /forecast:
     get:
       summary: Get 5-day weather forecast
       parameters:
