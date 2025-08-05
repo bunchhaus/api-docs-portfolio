@@ -61,7 +61,7 @@ paths:
                 name: Brooklyn
                 cod: 200
 
-    /forecast:
+  /forecast:
     get:
       summary: Get 5-day weather forecast
       parameters:
@@ -94,4 +94,103 @@ paths:
                   - date: "2025-08-09"
                     temperature: 26.8
                     condition: "Rain"
+
+components:
+  schemas:
+    CurrentWeather:
+      type: object
+      properties:
+        coord:
+          type: object
+          properties:
+            lon:
+              type: number
+            lat:
+              type: number
+        weather:
+          type: array
+          items:
+            type: object
+            properties:
+              id:
+                type: integer
+              main:
+                type: string
+              description:
+                type: string
+              icon:
+                type: string
+        base:
+          type: string
+        main:
+          type: object
+          properties:
+            temp:
+              type: number
+            feels_like:
+              type: number
+            temp_min:
+              type: number
+            temp_max:
+              type: number
+            pressure:
+              type: integer
+            humidity:
+              type: integer
+            sea_level:
+              type: integer
+            grnd_level:
+              type: integer
+        visibility:
+          type: integer
+        wind:
+          type: object
+          properties:
+            speed:
+              type: number
+            deg:
+              type: integer
+        clouds:
+          type: object
+          properties:
+            all:
+              type: integer
+        dt:
+          type: integer
+        sys:
+          type: object
+          properties:
+            type:
+              type: integer
+            id:
+              type: integer
+            country:
+              type: string
+            sunrise:
+              type: integer
+            sunset:
+              type: integer
+        timezone:
+          type: integer
+        id:
+          type: integer
+        name:
+          type: string
+        cod:
+          type: integer
+    Forecast:
+      type: object
+      properties:
+        days:
+          type: array
+          items:
+            type: object
+            properties:
+              date:
+                type: string
+                format: date
+              temperature:
+                type: number
+              condition:
+                type: string
 
