@@ -1,4 +1,4 @@
-## Get Current Weather by ZIP Code
+# Get Current Weather by ZIP Code
 
 **Endpoint:**
 
