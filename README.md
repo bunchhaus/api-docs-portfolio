@@ -1,18 +1,28 @@
-# Weather API Documentation
+# Weather & Surf Report API Documentation
 
-Welcome to the Weather API documentation site. This project provides clear and concise reference guides for interacting with OpenWeatherMap APIs.
+This repository contains two complete API documentation projects built as part of my API documentation practice:
 
-## Reference Endpoints
+- **[Weather API Documentation](./index.html)** – Documentation for the OpenWeatherMap API, including current weather and 5-day forecast endpoints.
+- **[Surf Report API Documentation](./surf.html)** – Documentation for a sample Surf Report API, including authentication, forecast, and schema references.
 
-- [Get Current Weather](reference/endpoints.md#get-current-weather-by-zip-code)
+## Reference Endpoints (Weather API)
+
+- [Get Current Weather](reference/endpoints.md#get-current-weather-by-zip-code)  
 - [Get 5-Day Forecast](reference/forecast.md#get-5-day-forecast-by-zip-code)
 
 ## Navigation Tips
 
-- Click any link above to jump directly to a documented endpoint.
-- Each endpoint includes request structure, query parameters, and example JSON responses.
+- Click any link above to jump directly to an endpoint.  
+- Each endpoint includes request structure, query parameters, and example JSON responses.  
 - Tables break down key response fields for developers.
 
----
+## Skills & Tools
 
-Created as part of an API documentation practice project.
+- OpenAPI 3.0 (YAML)
+- Redoc for API rendering
+- Markdown documentation structure
+- HTML/CSS integration
+- GitHub Pages deployment
+
+---
+Created as part of an API documentation portfolio project.
