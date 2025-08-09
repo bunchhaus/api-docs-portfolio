@@ -24,5 +24,10 @@ This repository contains two complete API documentation projects built as part o
 - HTML/CSS integration
 - GitHub Pages deployment
 
+## Live API Docs
+
+- [Weather API Documentation](https://bunchhaus.github.io/weather-api-docs/index.html)
+- [Surf Report API Documentation](https://bunchhaus.github.io/weather-api-docs/surf.html)
+
 ---
 Created as part of an API documentation portfolio project.
