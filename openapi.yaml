@@ -7,9 +7,13 @@ servers:
   - url: https://api.openweathermap.org/data/2.5
     description: OpenWeather Production server
 
-# Make every operation include appid=... automatically
+# Make every operation include appid=... automatically (name must match components.securitySchemes)
 security:
-  - app_id: []
+  - ApiKeyQuery: []
+
+tags:
+  - name: surfreport
+    description: Surf conditions for beaches
 
 paths:
   /weather:
@@ -38,7 +42,6 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/CurrentWeather'
-              # example kept from your file (fine for docs)
               example:
                 coord: { lon: -73.9496, lat: 40.6501 }
                 weather: [{ id: 721, main: Haze, description: haze, icon: "50d" }]
@@ -75,11 +78,11 @@ paths:
             example: 95050,us
         - in: query
           name: q
-          description: City name with optional country code, e.g., Brooklyn,US
+          description: City name with optional country code, e.g., Santa Clara,US
           required: false
           schema:
             type: string
-            example: Santa Clara, US
+            example: Santa Clara,US
       responses:
         '200':
           description: OK
@@ -95,15 +98,116 @@ paths:
                   - { date: "2025-08-08", temperature: 30.0, condition: "Thunderstorms" }
                   - { date: "2025-08-09", temperature: 26.8, condition: "Rain" }
 
+  /surfreport/{beachId}:
+    # Path-level server override so Surf hits its own base URL
+    servers:
+      - url: https://api.surfreport.example.com/v1
+        description: Surf Report Production server
+    get:
+      tags: [surfreport]
+      summary: Get Surf Conditions by Beach ID
+      description: |
+        Fetch surfing conditions for a specific beach.  
+        If `time` is omitted, returns up to `days` (default 3, max 7) of conditions, grouped by hour.
+        If `time` is provided (Unix epoch **milliseconds**, UTC), returns only that hour.
+      operationId: getSurfReport
+      security:
+        - ApiKeyQuery: []
+      parameters:
+        - name: beachId
+          in: path
+          required: true
+          description: The unique identifier of the beach to look up.
+          schema:
+            type: string
+        - name: days
+          in: query
+          required: false
+          description: Number of days to include (default 3, max 7).
+          schema:
+            type: integer
+            minimum: 1
+            maximum: 7
+            default: 3
+        - name: units
+          in: query
+          required: false
+          description: Measurement units.
+          schema:
+            type: string
+            enum: [imperial, metric]
+            default: imperial
+        - name: time
+          in: query
+          required: false
+          description: |
+            Specific hour to return, as Unix epoch **milliseconds** (UTC).
+            If provided, only that hour’s conditions are returned.
+          schema:
+            type: integer
+            example: 1733625600000
+      responses:
+        '200':
+          description: Surf report returned successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SurfReportResponse'
+              examples:
+                multiDay:
+                  summary: Multi-day hourly report
+                  value:
+                    surfreport:
+                      - beach: Santa Cruz
+                        monday:
+                          "1pm": { tide: 5,  wind: 15, watertemp: 80, surfheight: 5, recommendation: "Go surfing!" }
+                          "2pm": { tide: -1, wind: 1,  watertemp: 50, surfheight: 3, recommendation: "Surfing conditions are okay, not great." }
+                          "3pm": { tide: -1, wind: 10, watertemp: 65, surfheight: 1, recommendation: "Not a good day for surfing." }
+        '400':
+          description: Bad request (malformed query or invalid parameter).
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              example: { code: 400, type: error, message: "Invalid value for parameter days. Max allowed is 7." }
+        '404':
+          description: Beach not found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              example: { code: 404, type: error, message: "beachId not found." }
+        '401':
+          description: Unauthorized (missing or invalid API key).
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              example: { code: 401, type: error, message: "Invalid API key." }
+        '429':
+          description: Rate limit exceeded.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              example: { code: 429, type: error, message: "Too many requests. Try again later." }
+        '500':
+          description: Server error.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
 components:
   securitySchemes:
     ApiKeyQuery:
       type: apiKey
       in: query
       name: appid
-      description: Your OpenWeather API Key
+      description: Your OpenWeather/Surf API Key
 
   schemas:
+    # Weather schemas (unchanged)
     CurrentWeather:
       type: object
       properties:
@@ -165,3 +269,67 @@ components:
               date: { type: string, format: date }
               temperature: { type: number }
               condition: { type: string }
+
+    # Surf schemas (new)
+    SurfReportResponse:
+      type: object
+      required: [surfreport]
+      properties:
+        surfreport:
+          type: array
+          description: List of surf reports per beach.
+          items:
+            $ref: '#/components/schemas/SurfReportItem'
+
+    SurfReportItem:
+      type: object
+      description: Surf report for a single beach with day/time groupings.
+      required: [beach]
+      properties:
+        beach:
+          type: string
+          description: Beach name.
+        monday:    { $ref: '#/components/schemas/DayConditions' }
+        tuesday:   { $ref: '#/components/schemas/DayConditions' }
+        wednesday: { $ref: '#/components/schemas/DayConditions' }
+        thursday:  { $ref: '#/components/schemas/DayConditions' }
+        friday:    { $ref: '#/components/schemas/DayConditions' }
+        saturday:  { $ref: '#/components/schemas/DayConditions' }
+        sunday:    { $ref: '#/components/schemas/DayConditions' }
+
+    DayConditions:
+      type: object
+      description: Hourly map where each key is an hour label (e.g., "1pm") and value is conditions.
+      additionalProperties:
+        $ref: '#/components/schemas/Conditions'
+
+    Conditions:
+      type: object
+      required: [tide, wind, watertemp, surfheight, recommendation]
+      properties:
+        tide:
+          type: number
+          description: Tide level; negative values indicate outgoing tide.
+        wind:
+          type: number
+          description: Wind speed (knots).
+          example: 12
+        watertemp:
+          type: number
+          description: Water temperature (F in imperial, C in metric).
+          example: 66
+        surfheight:
+          type: number
+          description: Wave height (feet in imperial, cm in metric).
+          example: 4
+        recommendation:
+          type: string
+          description: Overall recommendation text.
+          example: "Go surfing!"
+
+    Error:
+      type: object
+      properties:
+        code:    { type: integer }
+        type:    { type: string }
+        message: { type: string }
