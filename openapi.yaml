@@ -26,7 +26,7 @@ paths:
             example: 95050,us
         - in: query
           name: q
-          description: City name with optional country code, e.g., Brooklyn,US
+          description: City name with optional country code, e.g., Santa Clara,US
           required: false
           schema:
             type: string
