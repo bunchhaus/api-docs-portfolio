@@ -11,7 +11,7 @@ This repository contains a single API documentation project built as part of my 
 
 ### Surf Report API
 
-- [Get Surf Conditions by Beach ID](reference/surf.md#get-surf-conditions-by-beach-id)
+- [Get Surf Conditions by Beach ID](reference/surf-report.md#get-surf-conditions-by-beach-id)
 
 ## Navigation Tips
 
