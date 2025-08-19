@@ -97,11 +97,11 @@ paths:
 
 components:
   securitySchemes:
-    app_id:
+    ApiKeyQuery:
       type: apiKey
       in: query
       name: appid
-      description: API key to authorize requests.
+      description: Your OpenWeather API Key
 
   schemas:
     CurrentWeather:
