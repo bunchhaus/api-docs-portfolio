@@ -5,10 +5,16 @@ info:
   description: |
     Returns surfing conditions (surf height, wind, tide, water temperature) and an overall recommendation
     for a given beach. Supports optional days, units, and time filters.
+  termsOfService: "https://example.com/terms"
+  contact:
+    name: "Surf Report API Support"
+    url: "https://example.com/api-support"
+    email: "support@example.com"
+
 
 servers:
-  - url: https://api.openweathermap.org
-    description: Example base (demo)
+  - url: https://api.surfreport.example.com/v1
+    description: Production server
 
 tags:
   - name: surfreport
@@ -35,8 +41,8 @@ paths:
             type: string
         - name: days
           in: query
-          description: Number of days to include (default 3, max 7).
           required: false
+          description: Number of days to include (default 3, max 7).
           schema:
             type: integer
             minimum: 1
@@ -44,18 +50,18 @@ paths:
             default: 3
         - name: units
           in: query
-          description: Measurement units.
           required: false
+          description: Measurement units.
           schema:
             type: string
             enum: [imperial, metric]
             default: imperial
         - name: time
           in: query
-          description: |
-            Specific hour to return, as Unix epoch **milliseconds** (UTC).  
-            If provided, only that hour’s conditions are returned.
           required: false
+          description: |
+            Specific hour to return, as Unix epoch **milliseconds** (UTC).
+            If provided, only that hour’s conditions are returned.
           schema:
             type: integer
             example: 1733625600000
@@ -121,6 +127,16 @@ paths:
                 code: 401
                 type: error
                 message: "Invalid API key."
+        '429':
+          description: Rate limit exceeded.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              example:
+                code: 429
+                type: error
+                message: "Too many requests. Try again later."
         '500':
           description: Server error.
           content:
