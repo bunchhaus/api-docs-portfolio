@@ -11,14 +11,10 @@ servers:
 security:
   - ApiKeyQuery: []
 
-tags:
-  - name: surfreport
-    description: Surf conditions for beaches
-
 paths:
   /weather:
     get:
-      summary: Get current weather
+      summary: Get current weathers
       parameters:
         # Choose ONE of these in practice; both are shown so users can pick.
         - in: query
@@ -99,7 +95,7 @@ paths:
                   - { date: "2025-08-09", temperature: 26.8, condition: "Rain" }
 
   /surfreport/{beachId}:
-    # Path-level server override so Surf hits its own base URL
+    # This server is not an existing one; it's just for illustration.
     servers:
       - url: https://api.surfreport.example.com/v1
         description: Surf Report Production server
