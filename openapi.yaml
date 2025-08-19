@@ -4,19 +4,33 @@ info:
   version: 1.0.0
 
 servers:
-  - url: https://api.example.com/v1
-    description: Production server
+  - url: https://api.openweathermap.org/data/2.5
+    description: OpenWeather Production server
+
+# Make every operation include appid=... automatically
+security:
+  - app_id: []
 
 paths:
-  /current:
+  /weather:
     get:
       summary: Get current weather
       parameters:
+        # Choose ONE of these in practice; both are shown so users can pick.
         - in: query
-          name: city
-          required: true
+          name: zip
+          description: Zip code with country code, e.g., 95050,us
+          required: false
           schema:
             type: string
+            example: 95050,us
+        - in: query
+          name: q
+          description: City name with optional country code, e.g., Brooklyn,US
+          required: false
+          schema:
+            type: string
+            example: Santa Clara,US
       responses:
         '200':
           description: OK
@@ -24,15 +38,10 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/CurrentWeather'
+              # example kept from your file (fine for docs)
               example:
-                coord:
-                  lon: -73.9496
-                  lat: 40.6501
-                weather:
-                  - id: 721
-                    main: Haze
-                    description: haze
-                    icon: "50d"
+                coord: { lon: -73.9496, lat: 40.6501 }
+                weather: [{ id: 721, main: Haze, description: haze, icon: "50d" }]
                 base: stations
                 main:
                   temp: 28.79
@@ -44,21 +53,13 @@ paths:
                   sea_level: 1025
                   grnd_level: 1025
                 visibility: 8047
-                wind:
-                  speed: 6.17
-                  deg: 120
-                clouds:
-                  all: 40
+                wind: { speed: 6.17, deg: 120 }
+                clouds: { all: 40 }
                 dt: 1754414061
-                sys:
-                  type: 2
-                  id: 2080536
-                  country: US
-                  sunrise: 1754387799
-                  sunset: 1754438812
+                sys: { type: 2, id: 2080536, country: US, sunrise: 1754387799, sunset: 1754438812 }
                 timezone: -14400
                 id: 5110302
-                name: Brooklyn
+                name: Santa Clara, US
                 cod: 200
 
   /forecast:
@@ -66,10 +67,19 @@ paths:
       summary: Get 5-day weather forecast
       parameters:
         - in: query
-          name: city
-          required: true
+          name: zip
+          description: Zip code with country code, e.g., 95050,us
+          required: false
           schema:
             type: string
+            example: 95050,us
+        - in: query
+          name: q
+          description: City name with optional country code, e.g., Brooklyn,US
+          required: false
+          schema:
+            type: string
+            example: Santa Clara, US
       responses:
         '200':
           description: OK
@@ -79,105 +89,71 @@ paths:
                 $ref: '#/components/schemas/Forecast'
               example:
                 days:
-                  - date: "2025-08-05"
-                    temperature: 28.5
-                    condition: "Haze"
-                  - date: "2025-08-06"
-                    temperature: 27.3
-                    condition: "Partly Cloudy"
-                  - date: "2025-08-07"
-                    temperature: 29.1
-                    condition: "Sunny"
-                  - date: "2025-08-08"
-                    temperature: 30.0
-                    condition: "Thunderstorms"
-                  - date: "2025-08-09"
-                    temperature: 26.8
-                    condition: "Rain"
+                  - { date: "2025-08-05", temperature: 28.5, condition: "Haze" }
+                  - { date: "2025-08-06", temperature: 27.3, condition: "Partly Cloudy" }
+                  - { date: "2025-08-07", temperature: 29.1, condition: "Sunny" }
+                  - { date: "2025-08-08", temperature: 30.0, condition: "Thunderstorms" }
+                  - { date: "2025-08-09", temperature: 26.8, condition: "Rain" }
 
 components:
+  securitySchemes:
+    app_id:
+      type: apiKey
+      in: query
+      name: appid
+      description: API key to authorize requests.
+
   schemas:
     CurrentWeather:
       type: object
       properties:
         coord:
           type: object
-          properties:
-            lon:
-              type: number
-            lat:
-              type: number
+          properties: { lon: { type: number }, lat: { type: number } }
         weather:
           type: array
           items:
             type: object
             properties:
-              id:
-                type: integer
-              main:
-                type: string
-              description:
-                type: string
-              icon:
-                type: string
-        base:
-          type: string
+              id: { type: integer }
+              main: { type: string }
+              description: { type: string }
+              icon: { type: string }
+        base: { type: string }
         main:
           type: object
           properties:
-            temp:
-              type: number
-            feels_like:
-              type: number
-            temp_min:
-              type: number
-            temp_max:
-              type: number
-            pressure:
-              type: integer
-            humidity:
-              type: integer
-            sea_level:
-              type: integer
-            grnd_level:
-              type: integer
-        visibility:
-          type: integer
+            temp: { type: number }
+            feels_like: { type: number }
+            temp_min: { type: number }
+            temp_max: { type: number }
+            pressure: { type: integer }
+            humidity: { type: integer }
+            sea_level: { type: integer }
+            grnd_level: { type: integer }
+        visibility: { type: integer }
         wind:
           type: object
           properties:
-            speed:
-              type: number
-            deg:
-              type: integer
+            speed: { type: number }
+            deg: { type: integer }
         clouds:
           type: object
-          properties:
-            all:
-              type: integer
-        dt:
-          type: integer
+          properties: { all: { type: integer } }
+        dt: { type: integer }
         sys:
           type: object
           properties:
-            type:
-              type: integer
-            id:
-              type: integer
-            country:
-              type: string
-            sunrise:
-              type: integer
-            sunset:
-              type: integer
-        timezone:
-          type: integer
-        id:
-          type: integer
-        name:
-          type: string
-        cod:
-          type: integer
+            type: { type: integer }
+            id: { type: integer }
+            country: { type: string }
+            sunrise: { type: integer }
+            sunset: { type: integer }
+        timezone: { type: integer }
+        id: { type: integer }
+        name: { type: string }
+        cod: { type: integer }
+
     Forecast:
       type: object
       properties:
@@ -186,11 +162,6 @@ components:
           items:
             type: object
             properties:
-              date:
-                type: string
-                format: date
-              temperature:
-                type: number
-              condition:
-                type: string
-
+              date: { type: string, format: date }
+              temperature: { type: number }
+              condition: { type: string }
