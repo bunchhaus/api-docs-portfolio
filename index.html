@@ -6,11 +6,12 @@
     <script src="redoc.standalone.js" type="text/javascript"></script>
   </head>
   <body>
-    <div id="redoc-container"></div> <!-- 🔥 THIS MUST BE PRESENT -->
+    <div id="redoc-container"></div>
     <script>
       document.addEventListener("DOMContentLoaded", function () {
-        Redoc.init("openapi.yaml", {}, document.getElementById("redoc-container"));
+        Redoc.init("openapi.yaml?v=2", {}, document.getElementById("redoc-container"));
       });
     </script>
   </body>
 </html>
+
