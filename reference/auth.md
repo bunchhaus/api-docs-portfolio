@@ -3,6 +3,7 @@
 This endpoint allows a user to authenticate using their API key.
 
 ## Endpoint
+
 `POST /auth/login`
 
 ## Parameters
