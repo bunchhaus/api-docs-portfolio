@@ -30,7 +30,7 @@ The end result is a professional, portfolio-ready API doc site suitable for deve
 
 ## Live API Docs
 
-- [Weather API Documentation](https://bunchhaus.github.io/weather-api-docs/index.html)
+- [Weather API Documentation](https://bunchhaus.github.io/weather-api-docs)
 
 ## Conceptual Guides
 
