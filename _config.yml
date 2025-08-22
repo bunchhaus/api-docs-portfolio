@@ -1,44 +1,7 @@
-baseurl: /weather-api-docs
+title: "Weather API Docs"
+baseurl: "/weather-api-docs"
 permalink: pretty
-title: 'API Documenation Portfolio: Heather Bunch'
 
-
-home: 
-  limit_services: 6
-
-collections:
-  services:
-    output: true
-    sort_by: weight
-  team:
-    output: true
-
-defaults:
-  - scope:
-      path: ""
-      type: "services"
-    values:
-      layout: "service"
-  - scope:
-      path: ""
-      type: "team"
-    values:
-      layout: "team"
-
-sass:
-  style: compressed # possible values: nested expanded compact compressed
-
+remote_theme: zerostaticthemes/jekyll-serif-theme
 plugins:
-  - jekyll-environment-variables
-
-exclude:
-  - Gemfile
-  - Gemfile.lock
-  - node_modules
-  - vendor/bundle/
-  - vendor/cache/
-  - vendor/gems/
-  - vendor/ruby/
-  - LICENSE.md
-  - LICENSE
-  - README.md
+  - jekyll-remote-theme

@@ -1,3 +1,7 @@
+layout: home
+
+title: Weather API
+
 # Weather API Documentation
 
 Welcome to the Weather API reference set. Below are the available endpoints:
