@@ -1,18 +1,12 @@
----
-title: Weather API Docs
 layout: home
-description: A sample API documentation portfolio built with the Jekyll Serif theme.
-intro_image: "images/illustrations/pointing.svg"
-intro_image_absolute: true
-intro_image_hide_on_mobile: true
-show_call_box: false
----
 
-## Weather API Documentation
+title: Weather API
 
-Welcome to the Weather API documentation site.
-Here you’ll find guides, examples, and reference material for the Weather API.
+# Weather API Documentation
 
-[Docs]({{ site.baseurl }}/docs/) → Tutorials and conceptual guides
+Welcome to the Weather API reference set. Below are the available endpoints:
 
-[Reference]({{ site.baseurl }}/reference/) → API endpoint details
+## Reference Endpoints
+
+- [Get Current Weather](reference/endpoints.md#get-current-weather-by-zip-code)
+- [Get 5-Day Forecast](reference/forecast.md#get-5-day-forecast-by-zip-code)
