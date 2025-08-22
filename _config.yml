@@ -1,6 +1,6 @@
-baseurl: '/'
+baseurl: '/api-docs/'
 permalink: pretty
-title: 'API Documenation Portfolio'
+title: 'API Documenation Portfolio: Heather Bunch'
 
 
 home: 
