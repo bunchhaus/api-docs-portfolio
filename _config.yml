@@ -1,10 +1,44 @@
-remote_theme: zerostaticthemes/jekyll-serif-theme
+baseurl: '/'
+permalink: pretty
+title: 'API Documenation Portfolio'
+
+
+home: 
+  limit_services: 6
+
+collections:
+  services:
+    output: true
+    sort_by: weight
+  team:
+    output: true
+
+defaults:
+  - scope:
+      path: ""
+      type: "services"
+    values:
+      layout: "service"
+  - scope:
+      path: ""
+      type: "team"
+    values:
+      layout: "team"
+
+sass:
+  style: compressed # possible values: nested expanded compact compressed
+
 plugins:
-  - jekyll-remote-theme
+  - jekyll-environment-variables
 
-title: Weather API Docs
-description: Sample API documentation project using Redoc
-url: "https://bunchhaus.github.io"
-baseurl: "/weather-api-docs"
-
-
+exclude:
+  - Gemfile
+  - Gemfile.lock
+  - node_modules
+  - vendor/bundle/
+  - vendor/cache/
+  - vendor/gems/
+  - vendor/ruby/
+  - LICENSE.md
+  - LICENSE
+  - README.md
