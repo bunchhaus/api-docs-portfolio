@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weather API Quick Reference - Weather API Documentation</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.7;
+            color: #333;
+            background-color: #f8f9fa;
+        }
+
+        .header {
+            background: white;
+            padding: 40px 0 20px 0;
+            border-bottom: 1px solid #e8eaed;
+        }
+
+        .header h1 {
+            font-size: 2.5rem;
+            font-weight: 400;
+            margin-bottom: 10px;
+            color: #202124;
+            text-align: left;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+            padding: 0 20px;
+        }
+
+        .header .subtitle {
+            font-size: 1.1rem;
+            color: #5f6368;
+            text-align: left;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+            padding: 0 20px;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 40px 20px;
+            background: white;
+        }
+
+        .back-nav {
+            background: #f8f9fa;
+            padding: 15px 20px;
+            border-radius: 8px;
+            margin-bottom: 30px;
+            border-left: 4px solid #202124;
+        }
+
+        .back-nav a {
+            color: #1a73e8;
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .back-nav a:hover {
+            text-decoration: underline;
+        }
+
+        h2 {
+            color: #202124;
+            font-size: 1.8rem;
+            font-weight: 500;
+            margin: 40px 0 20px 0;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #e8eaed;
+        }
+
+        h3 {
+            color: #202124;
+            font-size: 1.3rem;
+            font-weight: 500;
+            margin: 30px 0 15px 0;
+        }
+
+        p {
+            margin-bottom: 20px;
+            color: #5f6368;
+        }
+
+        .intro-text {
+            font-size: 1.1rem;
+            line-height: 1.6;
+            color: #202124;
+            margin-bottom: 30px;
+        }
+
+        .code-block {
+            background: #f8f9fa;
+            border: 1px solid #e8eaed;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 20px 0;
+            font-family: 'Monaco', 'Consolas', 'Courier New', monospace;
+            font-size: 14px;
+            overflow-x: auto;
+            position: relative;
+        }
+
+        .code-block::before {
+            content: attr(data-language);
+            position: absolute;
+            top: 8px;
+            right: 12px;
+            background: #202124;
+            color: white;
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-size: 11px;
+            text-transform: uppercase;
+        }
+
+        .reference-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+        }
+
+        .reference-table * {
+            font-weight: 400 !important;
+        }
+
+        .reference-table th {
+            background: #f8f9fa;
+            color: #202124;
+            padding: 15px;
+            text-align: left;
+            font-weight: 500;
+            border-bottom: 1px solid #e8eaed;
+        }
+
+        .reference-table td {
+            padding: 15px;
+            border-bottom: 1px solid #e8eaed;
+            color: #5f6368;
+            font-weight: 400;
+        }
+
+        .reference-table tr:last-child td {
+            border-bottom: none;
+        }
+
+        .endpoint-code {
+            font-family: 'Monaco', 'Consolas', 'Courier New', monospace;
+            background: #f8f9fa;
+            padding: 4px 8px;
+            border-radius: 4px;
+            color: #202124;
+        }
+
+        .note-box {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 8px;
+            border-left: 4px solid #202124;
+            margin: 20px 0;
+        }
+
+        .note-box p {
+            margin: 0;
+            color: #202124;
+            font-weight: 400;
+        }
+
+        .tips-section {
+            background: #e8f5e8;
+            padding: 25px;
+            border-radius: 8px;
+            border-left: 4px solid #34a853;
+            margin: 30px 0;
+        }
+
+        .tips-list {
+            list-style: none;
+            margin: 0;
+        }
+
+        .tips-list li {
+            padding: 8px 0;
+            color: #202124;
+            line-height: 1.6;
+        }
+
+        .tips-list li::before {
+            content: "💡";
+            margin-right: 8px;
+        }
+
+        .status-summary {
+            background: #fff3cd;
+            padding: 20px;
+            border-radius: 8px;
+            border-left: 4px solid #f9ab00;
+            margin: 30px 0;
+        }
+
+        .status-summary p {
+            margin: 8px 0;
+            color: #202124;
+        }
+
+        .divider {
+            border: none;
+            border-top: 1px solid #e8eaed;
+            margin: 40px 0;
+        }
+
+        a {
+            color: #1a73e8;
+            text-decoration: none;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+        code {
+            background: #f8f9fa;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-family: 'Monaco', 'Consolas', 'Courier New', monospace;
+            font-size: 0.9em;
+            color: #202124;
+        }
+
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 2rem;
+            }
+            
+            .container {
+                margin: 0 15px;
+                padding: 30px 15px;
+            }
+
+            .reference-table {
+                font-size: 14px;
+            }
+
+            .reference-table th, .reference-table td {
+                padding: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>Weather API Quick Reference</h1>
+        <p class="subtitle">Handy reference card with common endpoints and parameters for quick lookup</p>
+    </div>
+
+    <div class="container">
+        <div class="back-nav">
+            <a href="index.html">← Back to Documentation Home</a>
+        </div>
+
+        <p class="intro-text">A one‑page cheat sheet of the most commonly used Weather API endpoints and parameters. For the full walkthrough, see <a href="gettingstarted.html">Getting Started</a>. For auth details, see <a href="authentication.html">Authentication</a>.</p>
+
+        <h2>Base URLs</h2>
+        
+        <div class="code-block" data-language="urls">https://api.openweathermap.org/data/2.5
+https://api.openweathermap.org/geo/1.0     # Geocoding endpoints</div>
+
+        <p>All requests require your API key as the <code>appid</code> query parameter.</p>
+
+        <h2>Core Endpoints (Data 2.5)</h2>
+        
+        <table class="reference-table">
+            <thead>
+                <tr>
+                    <th>Group</th>
+                    <th>Endpoint</th>
+                    <th>Purpose</th>
+                    <th>Minimal Example</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Current Weather</td>
+                    <td><code>/weather</code></td>
+                    <td>Current conditions by city/coords</td>
+                    <td><code>/weather?q=London,UK&appid=API_KEY</code></td>
+                </tr>
+                <tr>
+                    <td>5‑Day Forecast</td>
+                    <td><code>/forecast</code></td>
+                    <td>5‑day / 3‑hour forecast</td>
+                    <td><code>/forecast?q=Paris,FR&appid=API_KEY</code></td>
+                </tr>
+                <tr>
+                    <td>Air Pollution</td>
+                    <td><code>/air_pollution</code></td>
+                    <td>Air Quality Index and pollutant components</td>
+                    <td><code>/air_pollution?lat=37.77&lon=-122.41&appid=API_KEY</code></td>
+                </tr>
+            </tbody>
+        </table>
+
+        <div class="note-box">
+            <p>Add <code>&units=metric</code> for °C or <code>&units=imperial</code> for °F.<br>
+            You can use <code>q=City,CountryCode</code> <strong>or</strong> <code>lat</code> + <code>lon</code> for location.</p>
+        </div>
+
+        <h2>Quick Examples</h2>
+
+        <h3>Current Weather (by city)</h3>
+        <div class="code-block" data-language="bash">curl -s "https://api.openweathermap.org/data/2.5/weather?q=San%20Francisco,US&units=metric&appid=$API_KEY"</div>
+
+        <h3>5‑Day Forecast (by city)</h3>
+        <div class="code-block" data-language="bash">curl -s "https://api.openweathermap.org/data/2.5/forecast?q=Berlin,DE&units=metric&appid=$API_KEY"</div>
+
+        <h3>Air Pollution (by coordinates)</h3>
+        <div class="code-block" data-language="bash">curl -s "https://api.openweathermap.org/data/2.5/air_pollution?lat=37.7749&lon=-122.4194&appid=$API_KEY"</div>
+
+        <h3>Geocoding (convert city → coordinates)</h3>
+        <div class="code-block" data-language="bash">curl -s "https://api.openweathermap.org/geo/1.0/direct?q=Tokyo,JP&limit=1&appid=$API_KEY"</div>
+
+        <h2>Common Query Parameters</h2>
+        
+        <table class="reference-table">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Type</th>
+                    <th>Values / Format</th>
+                    <th>Notes</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><code>q</code></td>
+                    <td>string</td>
+                    <td><code>City,CountryCode</code> (e.g., <code>Paris,FR</code>)</td>
+                    <td>URL‑encode spaces (e.g., <code>San%20Francisco</code>).</td>
+                </tr>
+                <tr>
+                    <td><code>lat</code></td>
+                    <td>float</td>
+                    <td>Latitude</td>
+                    <td>Alternative to <code>q</code>.</td>
+                </tr>
+                <tr>
+                    <td><code>lon</code></td>
+                    <td>float</td>
+                    <td>Longitude</td>
+                    <td>Alternative to <code>q</code>.</td>
+                </tr>
+                <tr>
+                    <td><code>units</code></td>
+                    <td>string</td>
+                    <td><code>standard</code> (K, default), <code>metric</code>, <code>imperial</code></td>
+                    <td>Temperature units.</td>
+                </tr>
+                <tr>
+                    <td><code>lang</code></td>
+                    <td>string</td>
+                    <td>ISO code (e.g., <code>en</code>, <code>es</code>, <code>fr</code>)</td>
+                    <td>Localizes condition text.</td>
+                </tr>
+                <tr>
+                    <td><code>appid</code></td>
+                    <td>string</td>
+                    <td>Your API key</td>
+                    <td>Required on every request.</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h2>Response Snippet (Current Weather)</h2>
+
+        <div class="code-block" data-language="json">{
+  "name": "San Francisco",
+  "coord": { "lon": -122.4194, "lat": 37.7749 },
+  "weather": [{ "main": "Clouds", "description": "scattered clouds" }],
+  "main": { "temp": 18.2, "feels_like": 17.5, "humidity": 72 }
+}</div>
+
+        <hr class="divider">
+
+        <h2>Status & Rate Limits (at a glance)</h2>
+
+        <div class="status-summary">
+            <p>Typical success code: <strong>200 OK</strong>.</p>
+            <p>Common errors: <strong>401</strong> (invalid key), <strong>404</strong> (not found), <strong>429</strong> (rate limit).</p>
+            <p>See <a href="status-errors.html">Status and Error Codes</a> and <a href="rate-limits.html">Rate Limiting</a> for details.</p>
+        </div>
+
+        <hr class="divider">
+
+        <h2>Tips</h2>
+
+        <div class="tips-section">
+            <ul class="tips-list">
+                <li>Prefer <code>lat</code>/<code>lon</code> for ambiguous city names.</li>
+                <li>Cache responses when possible to reduce calls and avoid <strong>429</strong>.</li>
+                <li>Never commit your <code>appid</code> to version control.</li>
+            </ul>
+        </div>
+    </div>
+</body>
+</html>

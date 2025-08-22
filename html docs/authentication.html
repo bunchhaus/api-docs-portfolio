@@ -1,0 +1,475 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Authentication and Authorization - Weather API Documentation</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.7;
+            color: #333;
+            background-color: #f8f9fa;
+        }
+
+        .header {
+            background: white;
+            padding: 40px 0 20px 0;
+            border-bottom: 1px solid #e8eaed;
+        }
+
+        .header h1 {
+            font-size: 2.5rem;
+            font-weight: 400;
+            margin-bottom: 10px;
+            color: #202124;
+            text-align: left;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+            padding: 0 20px;
+        }
+
+        .header .subtitle {
+            font-size: 1.1rem;
+            color: #5f6368;
+            text-align: left;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+            padding: 0 20px;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 40px 20px;
+            background: white;
+        }
+
+        .back-nav {
+            background: #f8f9fa;
+            padding: 15px 20px;
+            border-radius: 8px;
+            margin-bottom: 30px;
+            border-left: 4px solid #202124;
+        }
+
+        .back-nav a {
+            color: #1a73e8;
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .back-nav a:hover {
+            text-decoration: underline;
+        }
+
+        h2 {
+            color: #202124;
+            font-size: 1.8rem;
+            font-weight: 500;
+            margin: 40px 0 20px 0;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #e8eaed;
+        }
+
+        h3 {
+            color: #202124;
+            font-size: 1.3rem;
+            font-weight: 500;
+            margin: 30px 0 15px 0;
+        }
+
+        p {
+            margin-bottom: 20px;
+            color: #5f6368;
+        }
+
+        .intro-text {
+            font-size: 1.1rem;
+            line-height: 1.6;
+            color: #202124;
+            margin-bottom: 30px;
+        }
+
+        .code-block {
+            background: #f8f9fa;
+            border: 1px solid #e8eaed;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 20px 0;
+            font-family: 'Monaco', 'Consolas', 'Courier New', monospace;
+            font-size: 14px;
+            overflow-x: auto;
+            position: relative;
+        }
+
+        .code-block::before {
+            content: attr(data-language);
+            position: absolute;
+            top: 8px;
+            right: 12px;
+            background: #202124;
+            color: white;
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-size: 11px;
+            text-transform: uppercase;
+        }
+
+        .step {
+            display: flex;
+            align-items: flex-start;
+            padding: 30px 0;
+            border-bottom: 1px solid #e8eaed;
+            margin: 0;
+            background: transparent;
+            border: none;
+            border-radius: 0;
+            box-shadow: none;
+        }
+
+        .step:last-child {
+            border-bottom: none;
+        }
+
+        .step-number {
+            background: #9aa0a6;
+            color: white;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 500;
+            margin-right: 20px;
+            margin-top: 0;
+            flex-shrink: 0;
+            font-size: 16px;
+        }
+
+        .step-content {
+            flex: 1;
+        }
+
+        .step-content h3 {
+            margin: 0 0 8px 0;
+            font-size: 1.2rem;
+            font-weight: 500;
+            color: #202124;
+        }
+
+        .step-content p {
+            margin: 0 0 15px 0;
+            color: #5f6368;
+            line-height: 1.6;
+        }
+
+        .note-box {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 8px;
+            border-left: 4px solid #202124;
+            margin: 20px 0;
+        }
+
+        .note-box p {
+            margin: 0;
+            color: #202124;
+            font-weight: 500;
+        }
+
+        .warning-box {
+            background: #fef7e0;
+            padding: 20px;
+            border-radius: 8px;
+            border-left: 4px solid #f9ab00;
+            margin: 20px 0;
+        }
+
+        .warning-box p {
+            margin: 0;
+            color: #202124;
+            font-weight: 500;
+        }
+
+        .prerequisites-list {
+            list-style: none;
+            margin: 20px 0;
+        }
+
+        .prerequisites-list li {
+            padding: 8px 0;
+            color: #5f6368;
+            line-height: 1.6;
+        }
+
+        .prerequisites-list li::before {
+            content: "•";
+            color: #9aa0a6;
+            font-weight: bold;
+            display: inline-block;
+            width: 1em;
+            margin-right: 8px;
+        }
+
+        .security-list {
+            list-style: none;
+            margin: 20px 0;
+        }
+
+        .security-list li {
+            padding: 8px 0;
+            color: #5f6368;
+            line-height: 1.6;
+        }
+
+        .security-list li::before {
+            content: "•";
+            color: #9aa0a6;
+            font-weight: bold;
+            display: inline-block;
+            width: 1em;
+            margin-right: 8px;
+        }
+
+        .response-example {
+            background: #f1f3f4;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 20px 0;
+            border-left: 4px solid #34a853;
+        }
+
+        .response-example h4 {
+            color: #34a853;
+            margin-bottom: 10px;
+            font-size: 1rem;
+            font-weight: 500;
+        }
+
+        .error-example {
+            background: #fce8e6;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 20px 0;
+            border-left: 4px solid #ea4335;
+        }
+
+        .error-example h4 {
+            color: #ea4335;
+            margin-bottom: 10px;
+            font-size: 1rem;
+            font-weight: 500;
+        }
+
+        a {
+            color: #1a73e8;
+            text-decoration: none;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+        code {
+            background: #f8f9fa;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-family: 'Monaco', 'Consolas', 'Courier New', monospace;
+            font-size: 0.9em;
+            color: #202124;
+        }
+
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 2rem;
+            }
+            
+            .container {
+                margin: 0 15px;
+                padding: 30px 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>Authentication and Authorization</h1>
+        <p class="subtitle">Learn how to authenticate your requests and manage API keys securely</p>
+    </div>
+
+    <div class="container">
+        <div class="back-nav">
+            <a href="index.html">← Back to Documentation Home</a>
+        </div>
+
+        <p class="intro-text">All requests to the Weather API must be authenticated with an API key. Authentication ties usage to your account and enforces plan limits.</p>
+
+        <h2>Prerequisites</h2>
+        
+        <ul class="prerequisites-list">
+            <li>An OpenWeather account with billing set up (if required by your plan).</li>
+            <li>Access to your <strong>API Keys</strong> page in the dashboard.</li>
+        </ul>
+
+        <h2>Get your API key</h2>
+
+        <div class="step">
+            <div class="step-number">1</div>
+            <div class="step-content">
+                <h3>Sign in to the dashboard</h3>
+                <p>Sign in to the OpenWeather dashboard.</p>
+            </div>
+        </div>
+
+        <div class="step">
+            <div class="step-number">2</div>
+            <div class="step-content">
+                <h3>Create a new key</h3>
+                <p>Go to <strong>API Keys</strong> → <strong>Create Key</strong>.</p>
+            </div>
+        </div>
+
+        <div class="step">
+            <div class="step-number">3</div>
+            <div class="step-content">
+                <h3>Store securely</h3>
+                <p>Copy the generated key and store it securely.</p>
+            </div>
+        </div>
+
+        <div class="step">
+            <div class="step-number">4</div>
+            <div class="step-content">
+                <h3>Add a label (Optional)</h3>
+                <p>Add a label/description to track usage.</p>
+            </div>
+        </div>
+
+        <div class="warning-box">
+            <p>If a key is exposed or you suspect misuse, <strong>revoke it and create a new one</strong> immediately.</p>
+        </div>
+
+        <h2>Base URL</h2>
+
+        <div class="code-block" data-language="plaintext">https://api.openweathermap.org/data/2.5</div>
+
+        <h2>Ways to send your key</h2>
+
+        <p>OpenWeather requires the key to be passed as the <code>appid</code> query parameter.</p>
+
+        <h3>Standard usage</h3>
+
+        <p>Append <code>appid=YOUR_API_KEY</code> to the request URL.</p>
+
+        <div class="code-block" data-language="bash"># Replace YOUR_API_KEY first
+API_KEY=YOUR_API_KEY
+
+curl -s "https://api.openweathermap.org/data/2.5/weather?q=San%20Francisco,US&units=metric&appid=$API_KEY"</div>
+
+        <div class="note-box">
+            <p><strong>Note:</strong> Unlike some APIs, OpenWeather does <strong>not</strong> accept the key in an <code>Authorization</code> header. Always use the <code>appid</code> parameter.</p>
+        </div>
+
+        <h2>Make a test request (copy‑ready)</h2>
+
+        <p>This verifies your key is valid and your network can reach the API.</p>
+
+        <div class="code-block" data-language="bash">API_KEY=YOUR_API_KEY
+
+curl -s "https://api.openweathermap.org/data/2.5/weather?q=San%20Francisco,US&units=metric&appid=$API_KEY"</div>
+
+        <div class="response-example">
+            <h4>Expected response (truncated)</h4>
+            <div class="code-block" data-language="json">{
+  "coord": { "lon": -122.4194, "lat": 37.7749 },
+  "weather": [{ "id": 802, "main": "Clouds", "description": "scattered clouds" }],
+  "main": {
+    "temp": 18.2,
+    "feels_like": 17.5,
+    "humidity": 72
+  },
+  "name": "San Francisco"
+}</div>
+        </div>
+
+        <h2>Apply API key restrictions</h2>
+
+        <p>Reduce risk by limiting where and how your key can be used.</p>
+
+        <ul class="security-list">
+            <li><strong>Application restrictions</strong> — Limit a key to certain origins or clients.
+                <ul style="margin-top: 8px; padding-left: 20px;">
+                    <li style="list-style-type: circle;">Web: restrict to allowed domains (e.g., <code>https://yourapp.example</code>)</li>
+                    <li style="list-style-type: circle;">Server: restrict by source IPs or CIDR ranges</li>
+                    <li style="list-style-type: circle;">Mobile: restrict to specific app identifiers / signing fingerprints</li>
+                </ul>
+            </li>
+        </ul>
+
+        <div class="warning-box">
+            <p>Keys without restrictions are easier to abuse. Add restrictions before deploying to production.</p>
+        </div>
+
+        <h2>Key scope and limits</h2>
+
+        <ul class="security-list">
+            <li><strong>Scope:</strong> Keys grant access to OpenWeather API endpoints for your account.</li>
+            <li><strong>Rate limits:</strong> All requests made with your key count toward your plan (see <strong>Rate Limiting and Thresholds</strong>).</li>
+            <li><strong>Rotation:</strong> Rotate keys on a regular schedule and immediately after exposure.</li>
+        </ul>
+
+        <h2>Security best practices</h2>
+
+        <ul class="security-list">
+            <li>Do not commit keys to Git, logs, or client-side code.</li>
+            <li>Use environment variables or a secrets manager.</li>
+            <li>Monitor usage and set alerts for unusual spikes.</li>
+        </ul>
+
+        <h2>Error responses</h2>
+
+        <p>Authentication and authorization errors return standardized JSON. Use the HTTP status to branch handling logic.</p>
+
+        <div class="error-example">
+            <h4>401 Unauthorized — missing/invalid key</h4>
+            <div class="code-block" data-language="http">HTTP/1.1 401 Unauthorized
+Content-Type: application/json
+
+{
+  "cod": 401,
+  "message": "Invalid API key. Please see http://openweathermap.org/faq#error401 for more info."
+}</div>
+        </div>
+
+        <div class="error-example">
+            <h4>429 Too Many Requests — rate limit exceeded</h4>
+            <div class="code-block" data-language="http">HTTP/1.1 429 Too Many Requests
+Content-Type: application/json
+Retry-After: 60
+
+{
+  "cod": 429,
+  "message": "You have exceeded the allowed number of requests."
+}</div>
+        </div>
+
+        <h2>What's next</h2>
+
+        <ul class="security-list">
+            <li>Proceed to <strong>Status and Error Codes</strong> for the full response model.</li>
+            <li>Review <strong>Rate Limiting and Thresholds</strong> to plan retries and backoff.</li>
+            <li>Continue with the <strong>Quick Start</strong> and endpoint reference to build calls.</li>
+        </ul>
+    </div>
+</body>
+</html>

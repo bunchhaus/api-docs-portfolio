@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>API Best Practices - Weather API Documentation</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.7;
+            color: #333;
+            background-color: #f8f9fa;
+        }
+
+        .header {
+            background: white;
+            padding: 40px 0 20px 0;
+            border-bottom: 1px solid #e8eaed;
+        }
+
+        .header h1 {
+            font-size: 2.5rem;
+            font-weight: 400;
+            margin-bottom: 10px;
+            color: #202124;
+            text-align: left;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+            padding: 0 20px;
+        }
+
+        .header .subtitle {
+            font-size: 1.1rem;
+            color: #5f6368;
+            text-align: left;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+            padding: 0 20px;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 40px 20px;
+            background: white;
+        }
+
+        .back-nav {
+            background: #f8f9fa;
+            padding: 15px 20px;
+            border-radius: 8px;
+            margin-bottom: 30px;
+            border-left: 4px solid #202124;
+        }
+
+        .back-nav a {
+            color: #1a73e8;
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .back-nav a:hover {
+            text-decoration: underline;
+        }
+
+        h2 {
+            color: #202124;
+            font-size: 1.8rem;
+            font-weight: 500;
+            margin: 40px 0 20px 0;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #e8eaed;
+        }
+
+        h3 {
+            color: #202124;
+            font-size: 1.3rem;
+            font-weight: 500;
+            margin: 30px 0 15px 0;
+        }
+
+        p {
+            margin-bottom: 20px;
+            color: #5f6368;
+        }
+
+        .intro-text {
+            font-size: 1.1rem;
+            line-height: 1.6;
+            color: #202124;
+            margin-bottom: 30px;
+        }
+
+        .practice-item {
+            padding: 20px 0;
+            border-bottom: 1px solid #e8eaed;
+        }
+
+        .practice-item:last-child {
+            border-bottom: none;
+        }
+
+        .practice-title {
+            color: #202124;
+            font-weight: 500;
+            font-size: 1.1rem;
+            margin-bottom: 8px;
+        }
+
+        .practice-description {
+            color: #5f6368;
+            line-height: 1.6;
+        }
+
+        .note-box {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 8px;
+            border-left: 4px solid #202124;
+            margin: 20px 0;
+        }
+
+        .note-box p {
+            margin: 0;
+            color: #202124;
+            font-weight: 400;
+        }
+
+        .status-codes {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+            border-left: 4px solid #202124;
+        }
+
+        .status-code {
+            padding: 8px 0;
+            border-bottom: 1px solid #e8eaed;
+            color: #5f6368;
+            font-family: 'Monaco', 'Consolas', 'Courier New', monospace;
+            font-size: 14px;
+        }
+
+        .status-code:last-child {
+            border-bottom: none;
+        }
+
+        .simple-list {
+            margin: 15px 0 0 20px;
+        }
+
+        .simple-list li {
+            padding: 8px 0;
+            color: #5f6368;
+            line-height: 1.6;
+            border-bottom: 1px solid #e8eaed;
+        }
+
+        .simple-list li:last-child {
+            border-bottom: none;
+        }
+
+        a {
+            color: #1a73e8;
+            text-decoration: none;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+        code {
+            background: #f8f9fa;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-family: 'Monaco', 'Consolas', 'Courier New', monospace;
+            font-size: 0.9em;
+            color: #202124;
+        }
+
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 2rem;
+            }
+            
+            .container {
+                margin: 0 15px;
+                padding: 30px 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>API Best Practices</h1>
+        <p class="subtitle">Optimization tips, caching strategies, and recommended implementation patterns</p>
+    </div>
+
+    <div class="container">
+        <div class="back-nav">
+            <a href="index.html">← Back to Documentation Home</a>
+        </div>
+
+        <p class="intro-text">This guide provides best practices for working with the Weather API. Following these recommendations will help ensure efficient, reliable, and secure integration.</p>
+
+        <h2>Authentication</h2>
+        
+        <div class="practice-item">
+            <div class="practice-title">Always pass your API key as a query parameter</div>
+            <div class="practice-description">Pass your API key (<code>appid</code>) as a query parameter in every request.</div>
+        </div>
+
+        <div class="practice-item">
+            <div class="practice-title">Never embed API keys in public repositories</div>
+            <div class="practice-description">Use environment variables or configuration files to store your API key securely.</div>
+        </div>
+
+        <h2>Request Efficiency</h2>
+
+        <div class="practice-item">
+            <div class="practice-title">Be specific in queries</div>
+            <div class="practice-description">Use coordinates (<code>lat</code>, <code>lon</code>) when possible instead of general city names. Coordinates return faster and avoid ambiguity (e.g., multiple "Springfield" cities).</div>
+        </div>
+
+        <div class="practice-item">
+            <div class="practice-title">Limit request frequency</div>
+            <div class="practice-description">Avoid sending unnecessary duplicate requests. Cache results where appropriate—weather data typically updates every few minutes, not seconds.</div>
+        </div>
+
+        <h2>Error Handling</h2>
+
+        <p>Handle standard HTTP response codes:</p>
+        
+        <div class="status-codes">
+            <div class="status-code">200: Successful request</div>
+            <div class="status-code">401: Invalid or missing API key</div>
+            <div class="status-code">404: City not found</div>
+            <div class="status-code">429: Too many requests (rate limited)</div>
+        </div>
+
+        <div class="practice-item">
+            <div class="practice-title">Build retry logic with exponential backoff</div>
+            <div class="practice-description">Always implement retry logic with exponential backoff for temporary errors.</div>
+        </div>
+
+        <h2>Rate Limits</h2>
+        
+        <div class="note-box">
+            <p>The free tier of the API enforces rate limiting.</p>
+        </div>
+        
+        <p>Avoid hitting rate limits by:</p>
+        <ul class="simple-list">
+            <li>Caching responses locally</li>
+            <li>Scheduling updates at reasonable intervals (e.g., every 10 minutes)</li>
+            <li>Consolidating requests where possible</li>
+        </ul>
+
+        <h2>Localization</h2>
+
+        <div class="practice-item">
+            <div class="practice-title">Use the lang parameter</div>
+            <div class="practice-description">Use the <code>lang</code> parameter to return weather descriptions in your user's preferred language.</div>
+        </div>
+
+        <div class="practice-item">
+            <div class="practice-title">Default language handling</div>
+            <div class="practice-description">If you don't specify <code>lang</code>, the API defaults to English.</div>
+        </div>
+
+        <h2>Units and Data Consistency</h2>
+
+        <div class="practice-item">
+            <div class="practice-title">Always set the units parameter</div>
+            <div class="practice-description">Always set the <code>units</code> parameter (<code>metric</code>, <code>imperial</code>, or <code>standard</code>) to ensure consistent data across your application.</div>
+        </div>
+
+        <div class="practice-item">
+            <div class="practice-title">Document your unit system</div>
+            <div class="practice-description">Document internally which unit system your app expects—mixing units can cause errors.</div>
+        </div>
+
+        <h2>Security</h2>
+
+        <div class="practice-item">
+            <div class="practice-title">Use HTTPS for all requests</div>
+            <div class="practice-description">Use HTTPS (<code>https://</code>) for all requests to encrypt traffic.</div>
+        </div>
+
+        <div class="practice-item">
+            <div class="practice-title">Rotate API keys periodically</div>
+            <div class="practice-description">Rotate your API key periodically for security.</div>
+        </div>
+
+        <div class="practice-item">
+            <div class="practice-title">Protect keys in client-side apps</div>
+            <div class="practice-description">Do not expose keys in client-side code when building public-facing apps.</div>
+        </div>
+
+        <h2>Testing</h2>
+
+        <div class="practice-item">
+            <div class="practice-title">Use sample locations for testing</div>
+            <div class="practice-description">Use sample locations (e.g., <code>q=London</code>) for initial testing.</div>
+        </div>
+
+        <div class="practice-item">
+            <div class="practice-title">Validate edge cases</div>
+            <div class="practice-description">Validate edge cases such as:</div>
+            <ul class="simple-list" style="margin-top: 10px;">
+                <li>Invalid city names</li>
+                <li>Extreme weather values (very high/low temps, high wind speeds)</li>
+                <li>Empty or missing parameters</li>
+            </ul>
+        </div>
+
+        <div class="note-box">
+            <p>By following these best practices, developers can integrate the Weather API in a way that is efficient, secure, and user-friendly.</p>
+        </div>
+    </div>
+</body>
+</html>

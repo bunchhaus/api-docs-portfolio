@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rate Limiting and Thresholds - Weather API Documentation</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.7;
+            color: #333;
+            background-color: #f8f9fa;
+        }
+
+        .header {
+            background: white;
+            padding: 40px 0 20px 0;
+            border-bottom: 1px solid #e8eaed;
+        }
+
+        .header h1 {
+            font-size: 2.5rem;
+            font-weight: 400;
+            margin-bottom: 10px;
+            color: #202124;
+            text-align: left;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+            padding: 0 20px;
+        }
+
+        .header .subtitle {
+            font-size: 1.1rem;
+            color: #5f6368;
+            text-align: left;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+            padding: 0 20px;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 40px 20px;
+            background: white;
+        }
+
+        .back-nav {
+            background: #f8f9fa;
+            padding: 15px 20px;
+            border-radius: 8px;
+            margin-bottom: 30px;
+            border-left: 4px solid #202124;
+        }
+
+        .back-nav a {
+            color: #1a73e8;
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .back-nav a:hover {
+            text-decoration: underline;
+        }
+
+        h2 {
+            color: #202124;
+            font-size: 1.8rem;
+            font-weight: 500;
+            margin: 40px 0 20px 0;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #e8eaed;
+        }
+
+        h3 {
+            color: #202124;
+            font-size: 1.3rem;
+            font-weight: 500;
+            margin: 30px 0 15px 0;
+        }
+
+        p {
+            margin-bottom: 20px;
+            color: #5f6368;
+        }
+
+        .intro-text {
+            font-size: 1.1rem;
+            line-height: 1.6;
+            color: #202124;
+            margin-bottom: 30px;
+        }
+
+        .code-block {
+            background: #f8f9fa;
+            border: 1px solid #e8eaed;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 20px 0;
+            font-family: 'Monaco', 'Consolas', 'Courier New', monospace;
+            font-size: 14px;
+            overflow-x: auto;
+            position: relative;
+        }
+
+        .code-block::before {
+            content: attr(data-language);
+            position: absolute;
+            top: 8px;
+            right: 12px;
+            background: #202124;
+            color: white;
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-size: 11px;
+            text-transform: uppercase;
+        }
+
+        .plan-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+        }
+
+        .plan-table * {
+            font-weight: 400 !important;
+        }
+
+        .plan-table th {
+            background: #f8f9fa;
+            color: #202124;
+            padding: 15px;
+            text-align: left;
+            font-weight: 500;
+            border-bottom: 1px solid #e8eaed;
+        }
+
+        .plan-table td {
+            padding: 15px;
+            border-bottom: 1px solid #e8eaed;
+            color: #5f6368;
+            font-weight: 400;
+        }
+
+        .plan-table tr:last-child td {
+            border-bottom: none;
+        }
+
+        .plan-name {
+            font-weight: 600;
+            color: #202124;
+        }
+
+        .plan-free {
+            color: #34a853;
+        }
+
+        .plan-paid {
+            color: #1a73e8;
+        }
+
+        .plan-enterprise {
+            color: #ea4335;
+        }
+
+        .calls-limit {
+            font-family: 'Monaco', 'Consolas', 'Courier New', monospace;
+            font-weight: bold;
+            color: #202124;
+        }
+
+        .price {
+            font-weight: 600;
+            color: #202124;
+        }
+
+        .note-box {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 8px;
+            border-left: 4px solid #202124;
+            margin: 20px 0;
+        }
+
+        .note-box p {
+            margin: 0;
+            color: #202124;
+            font-weight: 500;
+        }
+
+        .error-example {
+            background: #fce8e6;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 20px 0;
+            border-left: 4px solid #ea4335;
+        }
+
+        .error-example h4 {
+            color: #ea4335;
+            margin-bottom: 10px;
+            font-size: 1rem;
+            font-weight: 500;
+        }
+
+        .best-practices-list {
+            list-style: none;
+            margin: 20px 0;
+        }
+
+        .best-practices-list li {
+            padding: 15px 0;
+            border-bottom: 1px solid #e8eaed;
+            color: #5f6368;
+            line-height: 1.6;
+        }
+
+        .best-practices-list li:last-child {
+            border-bottom: none;
+        }
+
+        .best-practices-list li::before {
+            content: "•";
+            color: #9aa0a6;
+            font-weight: bold;
+            display: inline-block;
+            width: 1em;
+            margin-right: 8px;
+        }
+
+        .best-practices-list strong {
+            color: #202124;
+            font-weight: 600;
+        }
+
+        .consequences-list {
+            list-style: none;
+            margin: 20px 0;
+        }
+
+        .consequences-list li {
+            padding: 8px 0;
+            color: #5f6368;
+            line-height: 1.6;
+        }
+
+        .consequences-list li::before {
+            content: "•";
+            color: #ea4335;
+            font-weight: bold;
+            display: inline-block;
+            width: 1em;
+            margin-right: 8px;
+        }
+
+        a {
+            color: #1a73e8;
+            text-decoration: none;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+        code {
+            background: #f8f9fa;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-family: 'Monaco', 'Consolas', 'Courier New', monospace;
+            font-size: 0.9em;
+            color: #202124;
+        }
+
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 2rem;
+            }
+            
+            .container {
+                margin: 0 15px;
+                padding: 30px 15px;
+            }
+
+            .plan-table {
+                font-size: 14px;
+            }
+
+            .plan-table th, .plan-table td {
+                padding: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>Rate Limiting and Thresholds</h1>
+        <p class="subtitle">Understanding request limits, quotas, and how to handle rate limiting gracefully</p>
+    </div>
+
+    <div class="container">
+        <div class="back-nav">
+            <a href="index.html">← Back to Documentation Home</a>
+        </div>
+
+        <p class="intro-text">To ensure fair usage and protect service stability, the Weather API enforces rate limits based on your subscription plan. Every request counts toward your quota.</p>
+
+        <h2>Rate Limits by Plan</h2>
+        
+        <table class="plan-table">
+            <thead>
+                <tr>
+                    <th>Plan</th>
+                    <th>Calls per minute</th>
+                    <th>Monthly Price</th>
+                    <th>Notes</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><span class="plan-name plan-free">Free</span></td>
+                    <td><span class="calls-limit">60</span></td>
+                    <td><span class="price">Free</span></td>
+                    <td>For exploration and low‑traffic apps.</td>
+                </tr>
+                <tr>
+                    <td><span class="plan-name plan-paid">Startup</span></td>
+                    <td><span class="calls-limit">600</span></td>
+                    <td><span class="price">$40/month</span></td>
+                    <td>Suitable for small apps.</td>
+                </tr>
+                <tr>
+                    <td><span class="plan-name plan-paid">Developer</span></td>
+                    <td><span class="calls-limit">3,000</span></td>
+                    <td><span class="price">$180/month</span></td>
+                    <td>For growing apps and moderate traffic.</td>
+                </tr>
+                <tr>
+                    <td><span class="plan-name plan-paid">Professional</span></td>
+                    <td><span class="calls-limit">30,000</span></td>
+                    <td><span class="price">$470/month</span></td>
+                    <td>For production workloads.</td>
+                </tr>
+                <tr>
+                    <td><span class="plan-name plan-enterprise">Enterprise</span></td>
+                    <td><span class="calls-limit">200,000</span></td>
+                    <td><span class="price">$2,000/month</span></td>
+                    <td>For large‑scale or mission‑critical apps.</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <div class="note-box">
+            <p>Note: Each API call (for example, fetching current weather) counts toward your quota.</p>
+        </div>
+
+        <h2>What Happens If You Exceed the Limit?</h2>
+
+        <ul class="consequences-list">
+            <li>You'll receive an HTTP 429 Too Many Requests error.</li>
+            <li>Additional requests may be throttled (slowed down) or rejected until your quota resets.</li>
+            <li>The response may include headers showing your current usage and reset time.</li>
+        </ul>
+
+        <p>Example headers:</p>
+
+        <div class="code-block" data-language="http">X-RateLimit-Limit: 60
+X-RateLimit-Remaining: 0
+X-RateLimit-Reset: 1692652800</div>
+
+        <h2>Example: Checking Rate Limit Status</h2>
+
+        <div class="code-block" data-language="bash">curl -i "https://api.openweathermap.org/data/2.5/weather?q=London,UK&appid=$API_KEY&units=metric"</div>
+
+        <div class="error-example">
+            <h4>Response headers</h4>
+            <div class="code-block" data-language="http">HTTP/1.1 429 Too Many Requests
+Content-Type: application/json
+X-RateLimit-Limit: 60
+X-RateLimit-Remaining: 0
+X-RateLimit-Reset: 1692652800</div>
+        </div>
+
+        <h2>Best Practices for Handling Rate Limits</h2>
+
+        <ul class="best-practices-list">
+            <li>Cache responses to avoid unnecessary repeated calls.</li>
+            <li>Batch requests where possible instead of calling per user action.</li>
+            <li>Check response headers for remaining quota before making large bursts.</li>
+            <li>Back off and retry after the reset window if you receive a 429 error.</li>
+            <li>Upgrade your plan if your app consistently needs more capacity.</li>
+        </ul>
+
+        <h2>Next Steps</h2>
+
+        <ul class="best-practices-list">
+            <li>Review <a href="status-errors.html">Status and Error Codes</a> for details on the 429 response.</li>
+            <li>Continue to <a href="quick-reference.html">Quick Reference</a> for common endpoints.</li>
+        </ul>
+    </div>
+</body>
+</html>
