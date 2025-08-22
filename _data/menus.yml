@@ -1,0 +1,19 @@
+main:
+  - name: "Docs"
+    url: "/docs/"
+    weight: 1
+  - name: "Reference"
+    url: "/reference/"
+    weight: 2
+
+footer:
+  - name: "Home"
+    url: "/"
+    weight: 1
+  - name: "Docs"
+    url: "/docs/"
+    weight: 2
+  - name: "Reference"
+    url: "/reference/"
+    weight: 3
+

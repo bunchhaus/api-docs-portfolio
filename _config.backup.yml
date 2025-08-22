@@ -1,0 +1,7 @@
+title: "Weather API Docs"
+baseurl: "/weather-api-docs"
+permalink: pretty
+
+remote_theme: zerostaticthemes/jekyll-serif-theme
+plugins:
+  - jekyll-remote-theme
