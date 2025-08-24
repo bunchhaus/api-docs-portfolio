@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weather Endpoints - Weather API Documentation</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.7;
+            color: #333;
+            background-color: #f8f9fa;
+        }
+
+        .header {
+            background: white;
+            padding: 40px 0 20px 0;
+            border-bottom: 1px solid #e8eaed;
+        }
+
+        .header h1 {
+            font-size: 2.5rem;
+            font-weight: 400;
+            margin-bottom: 10px;
+            color: #202124;
+            text-align: left;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+            padding: 0 20px;
+        }
+
+        .header .subtitle {
+            font-size: 1.1rem;
+            color: #5f6368;
+            text-align: left;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+            padding: 0 20px;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 40px 20px;
+            background: white;
+        }
+
+        .back-nav {
+            background: #f8f9fa;
+            padding: 15px 20px;
+            border-radius: 8px;
+            margin-bottom: 30px;
+            border-left: 4px solid #202124;
+        }
+
+        .back-nav a {
+            color: #1a73e8;
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .back-nav a:hover {
+            text-decoration: underline;
+        }
+
+        h2 {
+            color: #202124;
+            font-size: 1.8rem;
+            font-weight: 500;
+            margin: 40px 0 20px 0;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #e8eaed;
+        }
+
+        h3 {
+            color: #202124;
+            font-size: 1.3rem;
+            font-weight: 500;
+            margin: 30px 0 15px 0;
+        }
+
+        p {
+            margin-bottom: 20px;
+            color: #5f6368;
+        }
+
+        .intro-text {
+            font-size: 1.1rem;
+            line-height: 1.6;
+            color: #202124;
+            margin-bottom: 30px;
+        }
+
+        .code-block {
+            background: #f8f9fa;
+            border: 1px solid #e8eaed;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 20px 0;
+            font-family: 'Monaco', 'Consolas', 'Courier New', monospace;
+            font-size: 14px;
+            overflow-x: auto;
+            position: relative;
+        }
+
+        .code-block::before {
+            content: attr(data-language);
+            position: absolute;
+            top: 8px;
+            right: 12px;
+            background: #202124;
+            color: white;
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-size: 11px;
+            text-transform: uppercase;
+        }
+
+        .reference-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+        }
+
+        .reference-table * {
+            font-weight: 400 !important;
+        }
+
+        .reference-table th {
+            background: #f8f9fa;
+            color: #202124;
+            padding: 15px;
+            text-align: left;
+            font-weight: 500;
+            border-bottom: 1px solid #e8eaed;
+        }
+
+        .reference-table td {
+            padding: 15px;
+            border-bottom: 1px solid #e8eaed;
+            color: #5f6368;
+            font-weight: 400;
+        }
+
+        .reference-table tr:last-child td {
+            border-bottom: none;
+        }
+
+        .endpoint-section {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+            border-left: 4px solid #202124;
+        }
+
+        .endpoint-section h3 {
+            margin: 0 0 10px 0;
+            color: #202124;
+        }
+
+        .endpoint-url {
+            font-family: 'Monaco', 'Consolas', 'Courier New', monospace;
+            background: #202124;
+            color: white;
+            padding: 12px 16px;
+            border-radius: 6px;
+            margin: 10px 0;
+            font-size: 14px;
+            overflow-x: auto;
+        }
+
+        .sample-request {
+            background: #e8f5e8;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+            border-left: 4px solid #34a853;
+        }
+
+        .sample-request h3 {
+            color: #34a853;
+            margin: 0 0 10px 0;
+        }
+
+        a {
+            color: #1a73e8;
+            text-decoration: none;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+        code {
+            background: #f8f9fa;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-family: 'Monaco', 'Consolas', 'Courier New', monospace;
+            font-size: 0.9em;
+            color: #202124;
+        }
+
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 2rem;
+            }
+            
+            .container {
+                margin: 0 15px;
+                padding: 30px 15px;
+            }
+
+            .reference-table {
+                font-size: 14px;
+            }
+
+            .reference-table th, .reference-table td {
+                padding: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>Get Current Weather by ZIP Code</h1>
+        <p class="subtitle">Complete reference for current weather data endpoints and parameters</p>
+    </div>
+
+    <div class="container">
+        <div class="back-nav">
+            <a href="../index.html">← Back to Documentation Home</a>
+        </div>
+
+        <div class="endpoint-section">
+            <h3>Endpoint</h3>
+            <div class="endpoint-url">GET https://api.openweathermap.org/data/2.5/weather</div>
+        </div>
+
+        <h2>Query Parameters</h2>
+        
+        <table class="reference-table">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Required</th>
+                    <th>Type</th>
+                    <th>Description</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><code>zip</code></td>
+                    <td>Yes</td>
+                    <td>string</td>
+                    <td>ZIP code (e.g., 95050)</td>
+                </tr>
+                <tr>
+                    <td><code>units</code></td>
+                    <td>Optional</td>
+                    <td>string</td>
+                    <td>Units: <code>imperial</code> or <code>metric</code></td>
+                </tr>
+                <tr>
+                    <td><code>appid</code></td>
+                    <td>Yes</td>
+                    <td>string</td>
+                    <td>Your API key</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <div class="sample-request">
+            <h3>Sample Request</h3>
+            <div class="code-block" data-language="http">GET https://api.openweathermap.org/data/2.5/weather?zip=95050&units=imperial&appid=YOUR_API_KEY</div>
+        </div>
+
+        <h2>Sample Response</h2>
+
+        <div class="code-block" data-language="json">{
+  "coord": { "lon": -121.953, "lat": 37.3492 },
+  "weather": [
+    {
+      "id": 800,
+      "main": "Clear",
+      "description": "clear sky",
+      "icon": "01d"
+    }
+  ],
+  "main": {
+    "temp": 63.86,
+    "feels_like": 63.7,
+    "temp_min": 60.07,
+    "temp_max": 60.78,
+    "pressure": 1018,
+    "humidity": 80
+  }
+}</div>
+
+        <h2>Response Field Descriptions</h2>
+        
+        <table class="reference-table">
+            <thead>
+                <tr>
+                    <th>Field</th>
+                    <th>Type</th>
+                    <th>Description</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><code>coord.lon</code></td>
+                    <td>float</td>
+                    <td>Longitude of the location</td>
+                </tr>
+                <tr>
+                    <td><code>coord.lat</code></td>
+                    <td>float</td>
+                    <td>Latitude of the location</td>
+                </tr>
+                <tr>
+                    <td><code>weather[0].main</code></td>
+                    <td>string</td>
+                    <td>Weather condition (e.g., Clear)</td>
+                </tr>
+                <tr>
+                    <td><code>weather[0].description</code></td>
+                    <td>string</td>
+                    <td>Detailed condition (e.g., clear sky)</td>
+                </tr>
+                <tr>
+                    <td><code>main.temp</code></td>
+                    <td>float</td>
+                    <td>Temperature in °F</td>
+                </tr>
+                <tr>
+                    <td><code>main.feels_like</code></td>
+                    <td>float</td>
+                    <td>Apparent temperature</td>
+                </tr>
+                <tr>
+                    <td><code>main.temp_min</code></td>
+                    <td>float</td>
+                    <td>Minimum temperature</td>
+                </tr>
+                <tr>
+                    <td><code>main.temp_max</code></td>
+                    <td>float</td>
+                    <td>Maximum temperature</td>
+                </tr>
+                <tr>
+                    <td><code>main.pressure</code></td>
+                    <td>integer</td>
+                    <td>Atmospheric pressure (hPa)</td>
+                </tr>
+                <tr>
+                    <td><code>main.humidity</code></td>
+                    <td>integer</td>
+                    <td>Humidity percentage</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>

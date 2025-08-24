@@ -1,4 +1,4 @@
-## Get 5-Day Forecast by ZIP Code
+# Get 5-Day Forecast by ZIP Code
 
 **Endpoint:**
 
@@ -58,7 +58,7 @@
 }
 ```
 
-**Response Field Descriptions**
+## Response Field Descriptions
 
 | Field                      | Type    | Description                                       |
 |----------------------------|---------|---------------------------------------------------|
