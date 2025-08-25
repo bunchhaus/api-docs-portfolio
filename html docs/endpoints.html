@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weather Endpoints - Weather API Documentation</title>
+    <link rel="stylesheet" href="../style.css">
+</head>
+<body>
+    <div class="header">
+        <h1>Get Current Weather by ZIP Code</h1>
+        <p class="subtitle">Complete reference for current weather data endpoints and parameters</p>
+    </div>
+
+    <div class="container">
+        <div class="back-nav">
+            <a href="../index.html">← Back to Documentation Home</a>
+        </div>
+
+        <div class="endpoint-section">
+            <h3>Endpoint</h3>
+            <div class="endpoint-url">GET https://api.openweathermap.org/data/2.5/weather</div>
+        </div>
+
+        <h2>Query Parameters</h2>
+        
+        <table class="reference-table">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Required</th>
+                    <th>Type</th>
+                    <th>Description</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><code>zip</code></td>
+                    <td>Yes</td>
+                    <td>string</td>
+                    <td>ZIP code (e.g., 95050)</td>
+                </tr>
+                <tr>
+                    <td><code>units</code></td>
+                    <td>Optional</td>
+                    <td>string</td>
+                    <td>Units: <code>imperial</code> or <code>metric</code></td>
+                </tr>
+                <tr>
+                    <td><code>appid</code></td>
+                    <td>Yes</td>
+                    <td>string</td>
+                    <td>Your API key</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <div class="sample-request">
+            <h3>Sample Request</h3>
+            <div class="code-block" data-language="http">GET https://api.openweathermap.org/data/2.5/weather?zip=95050&units=imperial&appid=YOUR_API_KEY</div>
+        </div>
+
+        <h2>Sample Response</h2>
+
+        <div class="code-block" data-language="json">{
+  "coord": { "lon": -121.953, "lat": 37.3492 },
+  "weather": [
+    {
+      "id": 800,
+      "main": "Clear",
+      "description": "clear sky",
+      "icon": "01d"
+    }
+  ],
+  "main": {
+    "temp": 63.86,
+    "feels_like": 63.7,
+    "temp_min": 60.07,
+    "temp_max": 60.78,
+    "pressure": 1018,
+    "humidity": 80
+  }
+}</div>
+
+        <h2>Response Field Descriptions</h2>
+        
+        <table class="reference-table">
+            <thead>
+                <tr>
+                    <th>Field</th>
+                    <th>Type</th>
+                    <th>Description</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><code>coord.lon</code></td>
+                    <td>float</td>
+                    <td>Longitude of the location</td>
+                </tr>
+                <tr>
+                    <td><code>coord.lat</code></td>
+                    <td>float</td>
+                    <td>Latitude of the location</td>
+                </tr>
+                <tr>
+                    <td><code>weather[0].main</code></td>
+                    <td>string</td>
+                    <td>Weather condition (e.g., Clear)</td>
+                </tr>
+                <tr>
+                    <td><code>weather[0].description</code></td>
+                    <td>string</td>
+                    <td>Detailed condition (e.g., clear sky)</td>
+                </tr>
+                <tr>
+                    <td><code>main.temp</code></td>
+                    <td>float</td>
+                    <td>Temperature in °F</td>
+                </tr>
+                <tr>
+                    <td><code>main.feels_like</code></td>
+                    <td>float</td>
+                    <td>Apparent temperature</td>
+                </tr>
+                <tr>
+                    <td><code>main.temp_min</code></td>
+                    <td>float</td>
+                    <td>Minimum temperature</td>
+                </tr>
+                <tr>
+                    <td><code>main.temp_max</code></td>
+                    <td>float</td>
+                    <td>Maximum temperature</td>
+                </tr>
+                <tr>
+                    <td><code>main.pressure</code></td>
+                    <td>integer</td>
+                    <td>Atmospheric pressure (hPa)</td>
+                </tr>
+                <tr>
+                    <td><code>main.humidity</code></td>
+                    <td>integer</td>
+                    <td>Humidity percentage</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>
