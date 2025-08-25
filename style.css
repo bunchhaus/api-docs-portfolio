@@ -210,6 +210,41 @@ p {
   font-weight: 500;
 }
 
+.copy-button {
+  position: absolute;
+  top: var(--spacing-sm);
+  right: 80px;
+  background: var(--link-color);
+  color: white;
+  border: none;
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: 11px;
+  cursor: pointer;
+  opacity: 0;
+  transition: opacity 0.2s ease;
+}
+
+.code-block:hover .copy-button {
+  opacity: 1;
+}
+
+.copy-button:hover {
+  background: #1557b0;
+}
+
+.copy-button.copied {
+  background: var(--success-color);
+}
+
+.code-block:hover .copy-button {
+  opacity: 1;
+}
+
+.copy-button:hover {
+  background: #1557b0;
+}
+
 /* Information boxes */
 .note-box {
   background: var(--surface-color);

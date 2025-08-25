@@ -98,5 +98,29 @@ curl -s "https://api.openweathermap.org/data/2.5/weather?q=San%20Francisco,US&un
 
         <p>See the <a href="authentication.html">Authentication</a> page for details on using your key securely.</p>
     </div>
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Add copy buttons to all code blocks
+        const codeBlocks = document.querySelectorAll('.code-block');
+        
+        codeBlocks.forEach(block => {
+            const button = document.createElement('button');
+            button.className = 'copy-button';
+            button.textContent = 'Copy';
+            button.onclick = function() {
+                const text = block.textContent || block.innerText;
+                navigator.clipboard.writeText(text).then(() => {
+                    button.textContent = 'Copied!';
+                    button.classList.add('copied');
+                    setTimeout(() => {
+                        button.textContent = 'Copy';
+                        button.classList.remove('copied');
+                    }, 2000);
+                });
+            };
+            block.appendChild(button);
+        });
+    });
+    </script>
 </body>
 </html>

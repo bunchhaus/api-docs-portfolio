@@ -176,5 +176,29 @@ Retry-After: 60
             <li>Continue with <a href="gettingstarted.html">Quick Start</a> and endpoint reference to build calls.</li>
         </ul>
     </div>
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Add copy buttons to all code blocks
+        const codeBlocks = document.querySelectorAll('.code-block');
+        
+        codeBlocks.forEach(block => {
+            const button = document.createElement('button');
+            button.className = 'copy-button';
+            button.textContent = 'Copy';
+            button.onclick = function() {
+                const text = block.textContent || block.innerText;
+                navigator.clipboard.writeText(text).then(() => {
+                    button.textContent = 'Copied!';
+                    button.classList.add('copied');
+                    setTimeout(() => {
+                        button.textContent = 'Copy';
+                        button.classList.remove('copied');
+                    }, 2000);
+                });
+            };
+            block.appendChild(button);
+        });
+    });
+    </script>
 </body>
 </html>s
