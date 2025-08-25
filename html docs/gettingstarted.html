@@ -4,224 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Getting Started - Weather API Documentation</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            line-height: 1.7;
-            color: #333;
-            background-color: #f8f9fa;
-        }
-
-        .header {
-            background: white;
-            padding: 40px 0 20px 0;
-            border-bottom: 1px solid #e8eaed;
-        }
-
-        .header h1 {
-            font-size: 2.5rem;
-            font-weight: 400;
-            margin-bottom: 10px;
-            color: #202124;
-            text-align: left;
-            max-width: 800px;
-            margin-left: auto;
-            margin-right: auto;
-            padding: 0 20px;
-        }
-
-        .header .subtitle {
-            font-size: 1.1rem;
-            color: #5f6368;
-            text-align: left;
-            max-width: 800px;
-            margin-left: auto;
-            margin-right: auto;
-            padding: 0 20px;
-        }
-
-        .container {
-            max-width: 800px;
-            margin: 0 auto;
-            padding: 40px 20px;
-            background: white;
-        }
-
-        .back-nav {
-            background: #f8f9fa;
-            padding: 15px 20px;
-            border-radius: 8px;
-            margin-bottom: 30px;
-            border-left: 4px solid #1a73e8;
-        }
-
-        .back-nav a {
-            color: #1a73e8;
-            text-decoration: none;
-            font-weight: 500;
-        }
-
-        .back-nav a:hover {
-            text-decoration: underline;
-        }
-
-        h2 {
-            color: #202124;
-            font-size: 1.8rem;
-            font-weight: 500;
-            margin: 40px 0 20px 0;
-            padding-bottom: 10px;
-            border-bottom: 2px solid #e8eaed;
-        }
-
-        h3 {
-            color: #202124;
-            font-size: 1.3rem;
-            font-weight: 500;
-            margin: 30px 0 15px 0;
-        }
-
-        p {
-            margin-bottom: 20px;
-            color: #5f6368;
-        }
-
-        .code-block {
-            background: #f8f9fa;
-            border: 1px solid #e8eaed;
-            border-radius: 8px;
-            padding: 20px;
-            margin: 20px 0;
-            font-family: 'Monaco', 'Consolas', 'Courier New', monospace;
-            font-size: 14px;
-            overflow-x: auto;
-            position: relative;
-        }
-
-        .code-block::before {
-            content: attr(data-language);
-            position: absolute;
-            top: 8px;
-            right: 12px;
-            background: #202124;
-            color: white;
-            padding: 2px 8px;
-            border-radius: 4px;
-            font-size: 11px;
-            text-transform: uppercase;
-        }
-
-        .highlight {
-            background: #f8f9fa;
-            padding: 20px;
-            border-radius: 8px;
-            border-left: 4px solid #202124;
-            margin: 20px 0;
-        }
-
-        .highlight strong {
-            color: #202124;
-        }
-
-        ol, ul {
-            margin: 20px 0;
-            padding-left: 30px;
-        }
-
-        li {
-            margin-bottom: 10px;
-            color: #5f6368;
-        }
-
-        .step {
-            display: flex;
-            align-items: flex-start;
-            padding: 30px 0;
-            border-bottom: 1px solid #e8eaed;
-            margin: 0;
-            background: transparent;
-            border: none;
-            border-radius: 0;
-            box-shadow: none;
-        }
-
-        .step:last-child {
-            border-bottom: none;
-        }
-
-        .step-number {
-            background: #9aa0a6;
-            color: white;
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: 500;
-            margin-right: 20px;
-            margin-top: 0;
-            float: none;
-            flex-shrink: 0;
-            font-size: 16px;
-        }
-
-        .step-content {
-            flex: 1;
-        }
-
-        .step-content h3 {
-            margin: 0 0 8px 0;
-            font-size: 1.2rem;
-            font-weight: 500;
-            color: #202124;
-        }
-
-        .step-content p {
-            margin: 0 0 15px 0;
-            color: #5f6368;
-            line-height: 1.6;
-        }
-
-        .response-example {
-            background: #f1f3f4;
-            border-radius: 8px;
-            padding: 20px;
-            margin: 20px 0;
-            border-left: 4px solid #34a853;
-        }
-
-        .response-example h4 {
-            color: #34a853;
-            margin-bottom: 10px;
-        }
-
-        a {
-            color: #1a73e8;
-            text-decoration: none;
-        }
-
-        a:hover {
-            text-decoration: underline;
-        }
-
-        @media (max-width: 768px) {
-            .header h1 {
-                font-size: 2rem;
-            }
-            
-            .container {
-                margin: 0 15px;
-                padding: 30px 15px;
-            }
-        }
-    </style>
+    <link rel="stylesheet" href="../style.css">
 </head>
 <body>
     <div class="header">
@@ -238,8 +21,8 @@
 
         <h2>Prerequisites</h2>
         
-        <div class="highlight">
-            <strong>Important:</strong> This setup procedure requires that you have an existing Open Weather Account.
+        <div class="note-box">
+            <p><strong>Important:</strong> This setup procedure requires that you have an existing Open Weather Account.</p>
         </div>
 
         <p>You can sign up at <a href="https://home.openweathermap.org/users/sign_up">OpenWeatherMap Sign Up</a>.</p>
@@ -251,8 +34,8 @@
             <div class="step-content">
                 <h3>Go to My API Keys</h3>
                 <p>Go to <a href="https://home.openweathermap.org/api_keys">My API Keys</a> and generate an API key.</p>
-                <div class="highlight">
-                    <strong>Note:</strong> You can generate as many API keys as needed for your subscription.
+                <div class="note-box">
+                    <p><strong>Note:</strong> You can generate as many API keys as needed for your subscription.</p>
                 </div>
             </div>
         </div>

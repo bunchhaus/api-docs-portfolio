@@ -5,182 +5,199 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Weather API Documentation</title>
     <style>
+        @import url('https://fonts.googleapis.com/css2?family=Google+Sans:wght@400;500&family=Roboto:wght@400;500&family=Roboto+Mono:wght@400&display=swap');
+
         * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
+          margin: 0;
+          padding: 0;
+          box-sizing: border-box;
+        }
+
+        :root {
+          --primary-text: #202124;
+          --secondary-text: #5f6368;
+          --subtle-text: #80868b;
+          --divider-color: #dadce0;
+          --background-color: #ffffff;
+          --surface-color: #f8f9fa;
+          --border-color: #e8eaed;
+          --link-color: #1a73e8;
+          --spacing-xs: 4px;
+          --spacing-sm: 8px;
+          --spacing-md: 16px;
+          --spacing-lg: 24px;
+          --spacing-xl: 32px;
+          --spacing-xxl: 48px;
         }
 
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            line-height: 1.6;
-            color: #333;
-            background-color: #f8f9fa;
+          font-family: 'Roboto', sans-serif;
+          line-height: 1.6;
+          color: var(--primary-text);
+          background-color: var(--surface-color);
+          font-size: 14px;
+          font-weight: 400;
+          -webkit-font-smoothing: antialiased;
+          -moz-osx-font-smoothing: grayscale;
         }
 
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 40px 20px;
+        .homepage-container {
+          max-width: 1200px;
+          margin: 0 auto;
+          padding: var(--spacing-xxl) var(--spacing-lg);
         }
 
-        .header {
-            text-align: center;
-            margin-bottom: 60px;
+        .homepage-header {
+          text-align: center;
+          margin-bottom: 60px;
         }
 
-        .header h1 {
-            font-size: 3rem;
-            font-weight: 300;
-            color: #1a73e8;
-            margin-bottom: 20px;
+        .homepage-header h1 {
+          font-family: 'Google Sans', sans-serif;
+          font-size: 3rem;
+          font-weight: 300;
+          color: var(--link-color);
+          margin-bottom: var(--spacing-lg);
         }
 
-        .header .subtitle {
-            font-size: 1.2rem;
-            color: #5f6368;
-            max-width: 600px;
-            margin: 0 auto;
+        .homepage-header .subtitle {
+          font-family: 'Roboto', sans-serif;
+          font-size: 1.125rem;
+          color: var(--secondary-text);
+          max-width: 600px;
+          margin: 0 auto;
         }
 
         .weather-icon {
-            width: 80px;
-            height: 80px;
-            margin: 0 auto 30px;
-            background: linear-gradient(135deg, #ffd700, #ffa500);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 40px;
-            box-shadow: 0 4px 20px rgba(255, 215, 0, 0.3);
+          width: 80px;
+          height: 80px;
+          margin: 0 auto var(--spacing-xl);
+          background: linear-gradient(135deg, #ffd700, #ffa500);
+          border-radius: 50%;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          font-size: 40px;
+          box-shadow: 0 2px 8px rgba(255, 215, 0, 0.3);
         }
 
         .section {
-            margin-bottom: 50px;
+          margin-bottom: 50px;
         }
 
         .section h2 {
-            font-size: 1.8rem;
-            color: #202124;
-            margin-bottom: 30px;
-            font-weight: 400;
+          font-family: 'Google Sans', sans-serif;
+          font-size: 1.5rem;
+          color: var(--primary-text);
+          margin-bottom: var(--spacing-xl);
+          font-weight: 400;
         }
 
         .cards-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 20px;
+          display: grid;
+          grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+          gap: var(--spacing-lg);
         }
 
         .card {
-            background: white;
-            border-radius: 12px;
-            padding: 30px;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-            transition: all 0.3s ease;
-            border: 1px solid #e8eaed;
-            text-decoration: none;
-            color: inherit;
-            display: block;
+          background: var(--background-color);
+          border-radius: 8px;
+          padding: var(--spacing-xl);
+          transition: all 0.3s ease;
+          border: 1px solid var(--border-color);
+          text-decoration: none;
+          color: inherit;
+          display: block;
         }
 
         .card:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
-            text-decoration: none;
-            color: inherit;
+          border-color: var(--link-color);
+          text-decoration: none;
+          color: inherit;
+          transform: translateY(-2px);
+          box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
         }
-
-        .card-icon {
-            width: 48px;
-            height: 48px;
-            border-radius: 8px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin-bottom: 20px;
-            font-size: 24px;
-            color: white;
-        }
-
-        .icon-guide { background: linear-gradient(135deg, #4285f4, #1a73e8); }
-        .icon-reference { background: linear-gradient(135deg, #34a853, #137333); }
-        .icon-resource { background: linear-gradient(135deg, #ea4335, #d33b01); }
 
         .card h3 {
-            font-size: 1.3rem;
-            margin-bottom: 10px;
-            color: #1a73e8;
-            font-weight: 500;
+          font-family: 'Google Sans', sans-serif;
+          font-size: 1.125rem;
+          margin-bottom: var(--spacing-sm);
+          color: var(--link-color);
+          font-weight: 400;
         }
 
         .card p {
-            color: #5f6368;
-            line-height: 1.5;
+          font-family: 'Roboto', sans-serif;
+          color: var(--secondary-text);
+          line-height: 1.5;
+          font-size: 14px;
+          font-weight: 400;
+          margin: 0;
         }
 
         .quick-links {
-            background: white;
-            border-radius: 12px;
-            padding: 30px;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-            border: 1px solid #e8eaed;
+          background: var(--background-color);
+          border-radius: 8px;
+          padding: var(--spacing-xl);
+          border: 1px solid var(--border-color);
         }
 
         .quick-links h3 {
-            color: #202124;
-            margin-bottom: 20px;
-            font-size: 1.3rem;
-            font-weight: 500;
+          font-family: 'Google Sans', sans-serif;
+          color: var(--primary-text);
+          margin-bottom: var(--spacing-lg);
+          font-size: 1.125rem;
+          font-weight: 400;
         }
 
         .quick-links ul {
-            list-style: none;
+          list-style: none;
         }
 
         .quick-links li {
-            margin-bottom: 12px;
+          margin-bottom: var(--spacing-md);
         }
 
         .quick-links a {
-            color: #1a73e8;
-            text-decoration: none;
-            display: flex;
-            align-items: center;
-            padding: 8px 0;
-            border-radius: 4px;
-            transition: background-color 0.2s ease;
+          color: var(--link-color);
+          text-decoration: none;
+          display: flex;
+          align-items: center;
+          padding: var(--spacing-sm) 0;
+          border-radius: 4px;
+          transition: background-color 0.2s ease;
+          font-size: 14px;
+          font-family: 'Roboto', sans-serif;
         }
 
         .quick-links a:hover {
-            background-color: #f8f9fa;
-            text-decoration: none;
+          background-color: var(--surface-color);
+          text-decoration: none;
         }
 
         .quick-links a::before {
-            content: "📄";
-            margin-right: 10px;
+          content: "📄";
+          margin-right: var(--spacing-sm);
         }
 
         @media (max-width: 768px) {
-            .header h1 {
-                font-size: 2.5rem;
-            }
-            
-            .cards-grid {
-                grid-template-columns: 1fr;
-            }
-            
-            .container {
-                padding: 20px 15px;
-            }
+          .homepage-header h1 {
+            font-size: 2.5rem;
+          }
+
+          .homepage-container {
+            padding: var(--spacing-xl) var(--spacing-md);
+          }
+
+          .cards-grid {
+            grid-template-columns: 1fr;
+          }
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <header class="header">
+    <div class="homepage-container">
+        <header class="homepage-header">
             <div class="weather-icon">☀️</div>
             <h1>Weather API</h1>
             <p class="subtitle">
@@ -192,19 +209,16 @@
             <h2>Get Started</h2>
             <div class="cards-grid">
                 <a href="html docs/gettingstarted.html" class="card">
-                    <div class="card-icon icon-guide">🚀</div>
                     <h3>Getting Started</h3>
                     <p>Start using the Weather API with authentication and make your first request.</p>
                 </a>
 
                 <a href="html docs/overview.html" class="card">
-                    <div class="card-icon icon-guide">📋</div>
                     <h3>API Overview</h3>
                     <p>Understand the Weather API's capabilities, structure, and core concepts.</p>
                 </a>
 
                 <a href="html docs/authentication.html" class="card">
-                    <div class="card-icon icon-guide">🔐</div>
                     <h3>Authentication</h3>
                     <p>Learn how to authenticate your requests and manage API keys securely.</p>
                 </a>
@@ -215,26 +229,21 @@
             <h2>API Reference</h2>
             <div class="cards-grid">
                 <a href="reference/endpoints.html" class="card">
-                    <div class="card-icon icon-reference">🌤️</div>
                     <h3>Weather Endpoints</h3>
                     <p>Complete reference for current weather data endpoints and parameters.</p>
                 </a>
 
                 <a href="reference/forecast.html" class="card">
-                    <div class="card-icon icon-reference">📅</div>
                     <h3>Forecast Endpoints</h3>
                     <p>Access weather forecasts with detailed hourly and daily breakdowns.</p>
                 </a>
 
-
                 <a href="reference/auth.html" class="card">
-                    <div class="card-icon icon-reference">🔐</div>
                     <h3>Authentication Reference</h3>
                     <p>Detailed authentication methods, API key management, and security guidelines.</p>
                 </a>
 
                 <a href="api-explorer.html" class="card">
-                    <div class="card-icon icon-reference">🚀</div>
                     <h3>Interactive API Explorer</h3>
                     <p>Try out API endpoints directly in your browser with live requests and responses.</p>
                 </a>
@@ -245,25 +254,21 @@
             <h2>Developer Resources</h2>
             <div class="cards-grid">
                 <a href="html docs/best-practices.html" class="card">
-                    <div class="card-icon icon-resource">⭐</div>
                     <h3>Best Practices</h3>
                     <p>Optimization tips, caching strategies, and recommended implementation patterns.</p>
                 </a>
 
                 <a href="html docs/rate-limits.html" class="card">
-                    <div class="card-icon icon-resource">⚡</div>
                     <h3>Rate Limits</h3>
                     <p>Understanding request limits, quotas, and how to handle rate limiting gracefully.</p>
                 </a>
 
                 <a href="html docs/status-errors.html" class="card">
-                    <div class="card-icon icon-resource">🔧</div>
                     <h3>Error Handling</h3>
                     <p>Complete guide to status codes, error responses, and troubleshooting.</p>
                 </a>
 
                 <a href="html docs/quick-reference.html" class="card">
-                    <div class="card-icon icon-resource">⚡</div>
                     <h3>Quick Reference</h3>
                     <p>Handy reference card with common endpoints and parameters for quick lookup.</p>
                 </a>
