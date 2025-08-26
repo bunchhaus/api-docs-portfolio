@@ -1,8 +1,8 @@
-# Weather API Documentation Portfolio
+# API Documentation Portfolio
 
 A comprehensive API documentation project showcasing professional-grade technical writing and documentation architecture. This project demonstrates the complete documentation lifecycle from planning through publication, following industry best practices for developer experience.
 
-**[View Live Documentation](https://bunchhaus.github.io/weather-api-docs)**
+**[View Live Documentation](https://bunchhaus.github.io/api-docs-portfolio)**
 
 ## Project Overview
 
