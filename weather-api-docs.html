@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Heather Bunch: API Documentation Portfolio</title>
+    <title>Weather API Documentation</title>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Google+Sans:wght@400;500&family=Roboto:wght@400;500&family=Roboto+Mono:wght@400&display=swap');
 
@@ -68,17 +68,17 @@
           margin: 0 auto;
         }
 
-        .profile-icon {
+        .weather-icon {
           width: 80px;
           height: 80px;
           margin: 0 auto var(--spacing-xl);
-          background: linear-gradient(135deg, #4285f4, #1a73e8);
+          background: linear-gradient(135deg, #ffd700, #ffa500);
           border-radius: 50%;
           display: flex;
           align-items: center;
           justify-content: center;
           font-size: 40px;
-          box-shadow: 0 2px 8px rgba(66, 133, 244, 0.3);
+          box-shadow: 0 2px 8px rgba(255, 215, 0, 0.3);
         }
 
         .section {
@@ -135,29 +135,49 @@
           margin: 0;
         }
 
-        .highlight-box {
-          background: linear-gradient(135deg, #e8f0fe, #f8f9fa);
-          border: 1px solid var(--link-color);
+        .quick-links {
+          background: var(--background-color);
           border-radius: 8px;
           padding: var(--spacing-xl);
-          margin: var(--spacing-xl) 0;
-          text-align: center;
+          border: 1px solid var(--border-color);
         }
 
-        .highlight-box h3 {
+        .quick-links h3 {
           font-family: 'Google Sans', sans-serif;
           color: var(--primary-text);
-          margin-bottom: var(--spacing-md);
+          margin-bottom: var(--spacing-lg);
           font-size: 1.125rem;
           font-weight: 400;
         }
 
-        .highlight-box p {
-          font-family: 'Roboto', sans-serif;
-          color: var(--secondary-text);
-          line-height: 1.5;
+        .quick-links ul {
+          list-style: none;
+        }
+
+        .quick-links li {
+          margin-bottom: var(--spacing-md);
+        }
+
+        .quick-links a {
+          color: var(--link-color);
+          text-decoration: none;
+          display: flex;
+          align-items: center;
+          padding: var(--spacing-sm) 0;
+          border-radius: 4px;
+          transition: background-color 0.2s ease;
           font-size: 14px;
-          margin: 0;
+          font-family: 'Roboto', sans-serif;
+        }
+
+        .quick-links a:hover {
+          background-color: var(--surface-color);
+          text-decoration: none;
+        }
+
+        .quick-links a::before {
+          content: "📄";
+          margin-right: var(--spacing-sm);
         }
 
         @media (max-width: 768px) {
@@ -178,62 +198,93 @@
 <body>
     <div class="homepage-container">
         <header class="homepage-header">
-            <h1>Heather Bunch: API Documentation Portfolio</h1>
+            <div class="weather-icon">☀️</div>
+            <h1>Weather API</h1>
             <p class="subtitle">
-                A specialized portfolio showcasing developer documentation expertise through real Google case studies and a comprehensive sample documentation project demonstrating technical writing skills.
+                This Weather API provides comprehensive weather information including temperature, precipitation, wind, cloud cover, and more for locations across the globe.
             </p>
         </header>
 
         <section class="section">
-            <h2>Google Case Studies</h2>
-            <div class="highlight-box">
-                <h3>Real work impact from Google</h3>
-                <p>Case studies showcase process, impact, and results from actual projects. Confidential details removed to comply with NDAs.</p>
-            </div>
+            <h2>Get Started</h2>
             <div class="cards-grid">
-                <a href="portfolio/darwinn.md" class="card">
-                    <h3>DarwiNN SDK Documentation</h3>
-                    <p>Complete developer documentation for internal machine learning SDK, including user journeys, toolchain guides, and audience-specific workflows for TensorFlow to TPU deployment.</p>
+                <a href="html docs/gettingstarted.html" class="card">
+                    <h3>Getting Started</h3>
+                    <p>Start using the Weather API with authentication and make your first request.</p>
                 </a>
 
-                <a href="portfolio/matl-srt.md" class="card">
-                    <h3>MATI-SRT Documentation Restructure</h3>
-                    <p>Large-scale information architecture project for internal security platform documentation, transforming scattered content into a structured, audience-focused site.</p>
+                <a href="html docs/overview.html" class="card">
+                    <h3>API Overview</h3>
+                    <p>Understand the Weather API's capabilities, structure, and core concepts.</p>
+                </a>
+
+                <a href="html docs/authentication.html" class="card">
+                    <h3>Authentication</h3>
+                    <p>Learn how to authenticate your requests and manage API keys securely.</p>
                 </a>
             </div>
         </section>
 
         <section class="section">
-            <h2>Sample Documentation</h2>
-            <div class="highlight-box">
-                <h3>Technical writing skills demonstration</h3>
-                <p>Complete API documentation project created to showcase technical writing capabilities and documentation architecture skills.</p>
-            </div>
+            <h2>API Reference</h2>
             <div class="cards-grid">
-                <a href="weather-api-docs.html" class="card">
-                    <h3>Weather API Documentation</h3>
-                    <p>Comprehensive API documentation including getting started guides, reference materials, authentication, error handling, and interactive examples.</p>
+                <a href="html docs/endpoints.html" class="card">
+                    <h3>Weather Endpoints</h3>
+                    <p>Complete reference for current weather data endpoints and parameters.</p>
+                </a>
+
+                <a href="html docs/forecast.html" class="card">
+                    <h3>Forecast Endpoints</h3>
+                    <p>Access weather forecasts with detailed hourly and daily breakdowns.</p>
+                </a>
+
+                <a href="html docs/auth.html" class="card">
+                    <h3>Authentication Reference</h3>
+                    <p>Detailed authentication methods, API key management, and security guidelines.</p>
+                </a>
+
+                <a href="api-explorer.html" class="card">
+                    <h3>Interactive API Explorer</h3>
+                    <p>Try out API endpoints directly in your browser with live requests and responses.</p>
                 </a>
             </div>
         </section>
 
         <section class="section">
-            <h2>Skills Demonstrated</h2>
+            <h2>Developer Resources</h2>
             <div class="cards-grid">
-                <a href="#" class="card" style="cursor: default;">
-                    <h3>Information Architecture</h3>
-                    <p>Logical organization of complex technical information with clear navigation and user-focused content hierarchy.</p>
+                <a href="html docs/best-practices.html" class="card">
+                    <h3>Best Practices</h3>
+                    <p>Optimization tips, caching strategies, and recommended implementation patterns.</p>
                 </a>
 
-                <a href="#" class="card" style="cursor: default;">
-                    <h3>Developer Experience</h3>
-                    <p>User research, testing, and iterative improvement of documentation based on developer feedback and usage patterns.</p>
+                <a href="html docs/rate-limits.html" class="card">
+                    <h3>Rate Limits</h3>
+                    <p>Understanding request limits, quotas, and how to handle rate limiting gracefully.</p>
                 </a>
 
-                <a href="#" class="card" style="cursor: default;">
-                    <h3>Content Strategy</h3>
-                    <p>Comprehensive documentation planning from concept to publication, including style guides, templates, and maintenance processes.</p>
+                <a href="html docs/status-errors.html" class="card">
+                    <h3>Error Handling</h3>
+                    <p>Complete guide to status codes, error responses, and troubleshooting.</p>
                 </a>
+
+                <a href="html docs/quick-reference.html" class="card">
+                    <h3>Quick Reference</h3>
+                    <p>Handy reference card with common endpoints and parameters for quick lookup.</p>
+                </a>
+            </div>
+        </section>
+
+        <section class="section">
+            <h2>Additional Resources</h2>
+            <div class="quick-links">
+                <h3>Complete Documentation</h3>
+                <ul>
+                    <li><a href="README.md">Project README</a></li>
+                    <li><a href="docs/glossary.html">API Glossary</a></li>
+                    <li><a href="reference/auth.html">Authentication Reference</a></li>
+                    <li><a href="openapi.yaml">OpenAPI Specification</a></li>
+                </ul>
             </div>
         </section>
     </div>
