@@ -88,7 +88,7 @@ This project provides documentation in multiple formats to serve different audie
 - [Forecast Endpoints](https://bunchhaus.github.io/weather-api-docs/html%20docs/forecast.html)
 - [Authentication Reference](https://bunchhaus.github.io/weather-api-docs/html%20docs/auth.html)
 
-**Markdown Source Files** (Technical writing samples)
+### Markdown Source Files (Technical writing samples)
 
 - [Getting Started](docs/gettingstarted.md)
 - [API Overview](docs/overview.md)
